@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <!-- Fondo circular con gradiente morado -->
+  <circle cx="8" cy="8" r="7" fill="#8b5cf6"/>
+  
+  <!-- Icono de código simplificado para 16x16 -->
+  <path d="M5 6l-1.5 1.5L5 9M11 6l1.5 1.5L11 9M7 10l2-4" stroke="#ffffff" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  
+  <!-- Puntos decorativos pequeños -->
+  <circle cx="4" cy="4" r="0.8" fill="#ffffff" opacity="0.7"/>
+  <circle cx="12" cy="4" r="0.8" fill="#ffffff" opacity="0.7"/>
+</svg>
