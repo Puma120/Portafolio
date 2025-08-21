@@ -12,7 +12,7 @@ const Hero = () => {
           <h2 className="hero-subtitle">Desarrollador Full Stack</h2>
           <p className="hero-description">
             Especializado en desarrollo web moderno con experiencia en Python, React, JavaScript, 
-            bases de datos SQL y NoSQL. Apasionado por crear soluciones innovadoras y eficientes.
+            bases de datos SQL y NoSQL. Apasionado en el uso de mi imaginación y el diseño contemporáneo.
           </p>
           <div className="hero-buttons">
             <button 

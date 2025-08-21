@@ -147,7 +147,7 @@
 }
 
 .tag {
-  background: linear-gradient(45deg, #025373, #05F2DB, #D9048E);
+  background: linear-gradient(45deg, #3A8AA6, #4EE8D7, #DC6BB0);
   color: white;
   padding: 0.5rem 1.5rem;
   border-radius: 25px;
@@ -159,7 +159,7 @@
 
 .tag:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+  box-shadow: 0 5px 15px rgba(78, 232, 215, 0.4);
 }
 
 @media (max-width: 768px) {
