@@ -1,8 +1,13 @@
 .hero {
   min-height: 100vh;
   display: flex;
-  align-items: center;
-  background: linear-gradient(135deg, #8b5cf6 0%, #667eea 50%, #764ba2 100%);
+ .highlight {
+  background: linear-gradient(45deg, #05F2DB, #D9048E, #F205CB);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}-items: center;
+  background: linear-gradient(135deg, #012326 0%, #025373 50%, #05F2DB 100%);
   color: white;
   position: relative;
   overflow: hidden;
@@ -46,10 +51,11 @@
   font-weight: 700;
   margin-bottom: 1rem;
   line-height: 1.2;
+  color:#2f44a1;
 }
 
 .highlight {
-  background: linear-gradient(45deg, #8b5cf6, #ff6b6b, #4ecdc4);
+  background: linear-gradient(45deg, #2f44a1, #ab3ad4, #95e6c8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -87,7 +93,7 @@
 }
 
 .btn-primary {
-  background: linear-gradient(45deg, #8b5cf6, #ff6b6b, #4ecdc4);
+  background: linear-gradient(45deg, #025373, #05F2DB, #D9048E);
   color: white;
 }
 
@@ -97,14 +103,13 @@
 }
 
 .btn-secondary {
-  background: transparent;
+  background: linear-gradient(45deg, #D9048E, #F205CB, #05F2DB);
   color: white;
-  border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .hero-visual {
@@ -144,14 +149,14 @@
   top: 10px;
   left: 10px;
   animation-delay: 0s;
-  background: rgba(139, 92, 246, 0.15);
+  background: rgba(1, 35, 38, 0.15);
 }
 
 .floating-card:nth-child(2) {
   top: 10px;
   right: 10px;
   animation-delay: 1s;
-  background: rgba(255, 107, 107, 0.15);
+  background: rgba(5, 242, 219, 0.15);
 }
 
 .floating-card:nth-child(3) {
@@ -159,7 +164,7 @@
   left: 50%;
   transform: translateX(-50%);
   animation-delay: 2s;
-  background: rgba(78, 205, 196, 0.15);
+  background: rgba(217, 4, 142, 0.15);
 }
 
 .floating-card:nth-child(4) {
@@ -167,7 +172,7 @@
   left: 5%;
   animation: floatCardSide 4s ease-in-out infinite;
   animation-delay: 0.5s;
-  background: rgba(139, 92, 246, 0.2);
+  background: rgba(2, 83, 115, 0.2);
 }
 
 .floating-card:nth-child(5) {
@@ -175,7 +180,7 @@
   right: 5%;
   animation: floatCardDiagonal 3.5s ease-in-out infinite;
   animation-delay: 1.5s;
-  background: rgba(255, 107, 107, 0.2);
+  background: rgba(242, 5, 203, 0.2);
 }
 
 .floating-card:nth-child(6) {
@@ -183,7 +188,7 @@
   left: 15%;
   animation: floatCard 2.8s ease-in-out infinite;
   animation-delay: 2.5s;
-  background: rgba(78, 205, 196, 0.2);
+  background: rgba(5, 242, 219, 0.2);
 }
 
 .card-icon {

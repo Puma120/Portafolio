@@ -22,7 +22,7 @@ const Hero = () => {
               Ver Proyectos
             </button>
             <button 
-              className="btn btn-secondary"
+              className="btn btn-primary"
               onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
             >
               Contactar

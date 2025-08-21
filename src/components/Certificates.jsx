@@ -100,9 +100,6 @@ const Certificates = () => {
                 <div className="certificate-overlay">
                   <div className="overlay-content">
                     <div className="category-badge">{certificate.category}</div>
-                    {!certificate.pending && (
-                      <button className="view-btn">Ver Certificado</button>
-                    )}
                   </div>
                 </div>
               </div>

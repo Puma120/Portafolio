@@ -1,6 +1,6 @@
 .skills {
   padding: 5rem 0;
-  background: white;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
 }
 
 .skills-grid {
@@ -31,7 +31,7 @@
 
 .category-icon {
   font-size: 2rem;
-  background: linear-gradient(45deg, #8b5cf6, #3498db, #2ecc71);
+  background: linear-gradient(45deg, #025373, #05F2DB, #D9048E);
   width: 60px;
   height: 60px;
   display: flex;
@@ -94,7 +94,7 @@
 
 .skill-progress {
   height: 100%;
-  background: linear-gradient(45deg, #8b5cf6, #3498db, #2ecc71);
+  background: linear-gradient(45deg, #025373, #05F2DB, #D9048E);
   border-radius: 3px;
   width: 0;
   animation: fillBar 2s ease-out forwards;
@@ -147,7 +147,7 @@
 }
 
 .tag {
-  background: linear-gradient(45deg, #8b5cf6, #3498db, #2ecc71);
+  background: linear-gradient(45deg, #025373, #05F2DB, #D9048E);
   color: white;
   padding: 0.5rem 1.5rem;
   border-radius: 25px;

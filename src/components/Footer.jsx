@@ -23,7 +23,7 @@ const Footer = () => {
                 <span>💻</span> GitHub
               </a>
               <a href="https://instagram.com/puma_w_" target="_blank" rel="noopener noreferrer" className="social-link">
-                <span>�</span> Instagram
+                <span>📷</span> Instagram
               </a>
             </div>
           </div>

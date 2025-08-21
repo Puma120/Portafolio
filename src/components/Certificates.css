@@ -66,7 +66,7 @@
   position: relative;
   height: 250px;
   overflow: hidden;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #012326 0%, #025373 100%);
 }
 
 .certificate-image img {
@@ -147,7 +147,7 @@
 }
 
 .view-btn {
-  background: linear-gradient(45deg, #3498db, #2ecc71);
+  background: linear-gradient(45deg, #025373, #05F2DB);
   color: white;
   border: none;
   padding: 0.5rem 1rem;

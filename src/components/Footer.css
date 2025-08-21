@@ -1,5 +1,5 @@
 .footer {
-  background: #2c3e50;
+  background: linear-gradient(135deg, #012326 0%, #025373 100%);
   color: white;
   padding: 3rem 0 1rem;
 }
@@ -31,7 +31,7 @@
   left: 0;
   width: 30px;
   height: 2px;
-  background: linear-gradient(45deg, #3498db, #2ecc71);
+  background: linear-gradient(45deg, #05F2DB, #D9048E);
 }
 
 .footer-section p {
@@ -83,7 +83,7 @@
 }
 
 .footer-links a:hover {
-  color: #3498db;
+  color: #05F2DB;
 }
 
 .contact-info p {
@@ -126,14 +126,14 @@
 }
 
 .footer-bottom-links a:hover {
-  color: #3498db;
+  color: #05F2DB;
 }
 
 .scroll-to-top {
   position: absolute;
   right: 0;
   top: -25px;
-  background: linear-gradient(45deg, #3498db, #2ecc71);
+  background: linear-gradient(45deg, #05F2DB, #D9048E);
   color: white;
   border: none;
   width: 50px;
@@ -148,7 +148,7 @@
 
 .scroll-to-top:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
+  box-shadow: 0 8px 25px rgba(5, 242, 219, 0.3);
 }
 
 @media (max-width: 1024px) {

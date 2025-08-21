@@ -3,6 +3,17 @@
   background: #f8f9fa;
 }
 
+.contact-icon {
+  font-size: 2rem;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(45deg, #025373, #05F2DB);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
 .contact-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -53,7 +64,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(45deg, #3498db, #2ecc71);
+  background: linear-gradient(45deg, #025373, #05F2DB);
   border-radius: 50%;
   flex-shrink: 0;
 }
@@ -96,7 +107,7 @@
 .social-link:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-  color: #3498db;
+  color: #05F2DB;
 }
 
 .social-icon {
@@ -111,7 +122,7 @@
 }
 
 .success-message {
-  background: linear-gradient(45deg, #2ecc71, #27ae60);
+  background: linear-gradient(45deg, #05F2DB, #025373);
   color: white;
   padding: 1rem;
   border-radius: 10px;
@@ -122,7 +133,7 @@
 }
 
 .error-message {
-  background: linear-gradient(45deg, #e74c3c, #c0392b);
+  background: linear-gradient(45deg, #D9048E, #F205CB);
   color: white;
   padding: 1rem;
   border-radius: 10px;
@@ -170,8 +181,8 @@
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  border-color: #05F2DB;
+  box-shadow: 0 0 0 3px rgba(5, 242, 219, 0.1);
 }
 
 .form-group textarea {
@@ -182,7 +193,7 @@
 .submit-btn {
   width: 100%;
   padding: 1rem 2rem;
-  background: linear-gradient(45deg, #3498db, #2ecc71);
+  background: linear-gradient(45deg, #025373, #05F2DB);
   color: white;
   border: none;
   border-radius: 25px;
