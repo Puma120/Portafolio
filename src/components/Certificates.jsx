@@ -65,16 +65,16 @@ const Certificates = () => {
   return (
     <section id="certificates" className="certificates">
       <div className="container">
-        <div className="section-header">
-          <h2>Certificaciones</h2>
-          <p>Reconocimientos y certificaciones que validan mis conocimientos y habilidades</p>
+        <div className="section-header fade-in">
+          <h2 className="section-title">Certificaciones</h2>
+          <p className="section-subtitle">Reconocimientos y certificaciones que validan mis conocimientos y habilidades</p>
         </div>
 
-        <div className="certificates-grid">
-          {certificates.map((certificate) => (
+        <div className="certificates-grid stagger-container">
+          {certificates.map((certificate, index) => (
             <div 
               key={certificate.id} 
-              className={`certificate-card ${certificate.pending ? 'pending' : ''}`}
+              className={`certificate-card stagger-item hover-lift interactive ${certificate.pending ? 'pending' : ''}`}
               onClick={() => openModal(certificate)}
             >
               <div className="certificate-image">

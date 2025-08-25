@@ -88,13 +88,13 @@ const Contact = () => {
   return (
     <section id="contact" className="contact">
       <div className="container">
-        <div className="section-header">
-          <h2>Contacto</h2>
-          <p>¿Tienes un proyecto en mente? ¡Hablemos y creemos algo increíble juntos!</p>
+        <div className="section-header fade-in">
+          <h2 className="section-title">Contacto</h2>
+          <p className="section-subtitle">¿Tienes un proyecto en mente? ¡Hablemos y creemos algo increíble juntos!</p>
         </div>
 
         <div className="contact-content">
-          <div className="contact-info">
+          <div className="contact-info slide-in-left">
             <h3>Información de Contacto</h3>
             <p>
               Estoy disponible para proyectos freelance, colaboraciones y oportunidades laborales. 
@@ -150,7 +150,7 @@ const Contact = () => {
             </div>
           </div>
 
-          <div className="contact-form">
+          <div className="contact-form slide-in-right">
             <h3>Envíame un Mensaje</h3>
             
             {submitStatus === 'success' && (

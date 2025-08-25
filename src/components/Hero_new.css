@@ -1,5 +1,5 @@
 .hero {
-  min-height: calc(100vh - 80px);
+  min-height: 100vh;
   display: flex;
   align-items: center;
   background: linear-gradient(135deg, #012326 0%, #025373 50%, #05F2DB 100%);
@@ -198,97 +198,6 @@
   height: 500px;
 }
 
-/* Profile Photo Container */
-.profile-photo-container {
-  position: absolute;
-  top: 45%;
-  left: 47%;
-  transform: translate(-50%, -50%);
-  width: 180px;
-  height: 180px;
-  z-index: 1; /* Detrás de los logos */
-  animation: fadeInScale 1s ease-out 0.5s forwards;
-  opacity: 0;
-}
-
-.profile-photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 2px solid rgba(5, 242, 219, 0.3);
-  transition: all var(--transition-normal);
-  opacity: 0.8;
-}
-
-.profile-photo:hover {
-  border-color: rgba(5, 242, 219, 0.6);
-  transform: scale(1.05);
-  opacity: 1;
-}
-
-.profile-photo-placeholder {
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(15px);
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: white;
-  border: 2px solid rgba(5, 242, 219, 0.3);
-  transition: all var(--transition-normal);
-  position: relative;
-  overflow: hidden;
-  opacity: 0.7;
-}
-
-.profile-photo-placeholder:hover {
-  border-color: rgba(5, 242, 219, 0.6);
-  background: rgba(255, 255, 255, 0.12);
-  transform: scale(1.05);
-  opacity: 0.9;
-}
-
-.photo-icon {
-  font-size: 3rem;
-  margin-bottom: 0.5rem;
-  opacity: 0.8;
-}
-
-.profile-photo-placeholder p {
-  font-size: 1rem;
-  font-weight: 600;
-  margin: 0.5rem 0;
-}
-
-.profile-photo-placeholder small {
-  font-size: 0.7rem;
-  opacity: 0.7;
-  margin: 0;
-}
-
-.profile-frame {
-  position: absolute;
-  top: -3px;
-  left: -3px;
-  right: -3px;
-  bottom: -3px;
-  border-radius: 50%;
-  background: conic-gradient(from 0deg, rgba(5, 242, 219, 0.4), rgba(217, 4, 142, 0.4), rgba(242, 5, 203, 0.4), rgba(2, 83, 115, 0.4), rgba(5, 242, 219, 0.4));
-  animation: rotateFrame 6s linear infinite;
-  z-index: -1;
-  opacity: 0.6;
-}
-
-@keyframes rotateFrame {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
 .floating-card {
   position: absolute;
   background: rgba(255, 255, 255, 0.1);
@@ -302,7 +211,6 @@
   transition: all var(--transition-normal);
   opacity: 0;
   transform: scale(0.8);
-  z-index: 5; /* Por encima de la foto */
 }
 
 .floating-card:hover {
@@ -339,40 +247,40 @@
   font-weight: 500;
 }
 
-/* Floating card positions and animations - reorganized around center photo */
+/* Floating card positions and animations */
 .floating-card:nth-child(1) {
-  top: 8%;
-  left: 8%;
+  top: 10%;
+  left: 20%;
   animation: floatCard1 4s ease-in-out infinite, fadeInScale 0.8s ease-out 0.2s forwards;
 }
 
 .floating-card:nth-child(2) {
-  top: 8%;
-  right: 8%;
+  top: 20%;
+  right: 10%;
   animation: floatCard2 4s ease-in-out infinite, fadeInScale 0.8s ease-out 0.4s forwards;
 }
 
 .floating-card:nth-child(3) {
-  top: 35%;
-  left: 2%;
+  top: 50%;
+  left: 10%;
   animation: floatCard3 4s ease-in-out infinite, fadeInScale 0.8s ease-out 0.6s forwards;
 }
 
 .floating-card:nth-child(4) {
-  top: 35%;
-  right: 2%;
+  bottom: 30%;
+  right: 20%;
   animation: floatCard4 4s ease-in-out infinite, fadeInScale 0.8s ease-out 0.8s forwards;
 }
 
 .floating-card:nth-child(5) {
-  bottom: 8%;
-  left: 8%;
+  bottom: 10%;
+  left: 30%;
   animation: floatCard5 4s ease-in-out infinite, fadeInScale 0.8s ease-out 1s forwards;
 }
 
 .floating-card:nth-child(6) {
-  bottom: 8%;
-  right: 8%;
+  top: 70%;
+  right: 40%;
   animation: floatCard6 4s ease-in-out infinite, fadeInScale 0.8s ease-out 1.2s forwards;
 }
 
@@ -478,64 +386,16 @@
     height: 300px;
   }
 
-  .profile-photo-container {
-    width: 130px;
-    height: 130px;
-  }
-
-  .photo-icon {
-    font-size: 1.8rem;
-  }
-
-  .profile-photo-placeholder p {
-    font-size: 0.8rem;
-  }
-
-  .profile-photo-placeholder small {
-    font-size: 0.6rem;
-  }
-
   .floating-card {
-    padding: 0.8rem;
+    padding: 1rem;
   }
 
   .card-icon {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
 
   .card-text {
-    font-size: 0.7rem;
-  }
-
-  /* Adjust card positions for mobile - more separated from center */
-  .floating-card:nth-child(1) {
-    top: 12%;
-    left: 3%;
-  }
-
-  .floating-card:nth-child(2) {
-    top: 12%;
-    right: 3%;
-  }
-
-  .floating-card:nth-child(3) {
-    top: 42%;
-    left: 0%;
-  }
-
-  .floating-card:nth-child(4) {
-    top: 42%;
-    right: 0%;
-  }
-
-  .floating-card:nth-child(5) {
-    bottom: 12%;
-    left: 3%;
-  }
-
-  .floating-card:nth-child(6) {
-    bottom: 12%;
-    right: 3%;
+    font-size: 0.8rem;
   }
 
   .bg-circle {
@@ -559,30 +419,5 @@
 
   .btn {
     width: 200px;
-  }
-
-  .profile-photo-container {
-    width: 100px;
-    height: 100px;
-  }
-
-  .photo-icon {
-    font-size: 1.2rem;
-  }
-
-  .profile-photo-placeholder p {
-    font-size: 0.6rem;
-  }
-
-  .profile-photo-placeholder small {
-    font-size: 0.4rem;
-  }
-
-  .floating-card {
-    padding: 0.6rem;
-  }
-
-  .card-text {
-    font-size: 0.6rem;
   }
 }

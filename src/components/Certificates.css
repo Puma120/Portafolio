@@ -1,6 +1,65 @@
 .certificates {
   padding: 5rem 0;
-  background: white;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.certificates::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="cert-pattern" width="50" height="50" patternUnits="userSpaceOnUse"><rect x="20" y="20" width="10" height="10" fill="rgba(2, 83, 115, 0.04)" rx="2"/></pattern></defs><rect width="100" height="100" fill="url(%23cert-pattern)"/></svg>');
+  animation: floatCertPattern 25s linear infinite;
+  z-index: 0;
+}
+
+@keyframes floatCertPattern {
+  0% { transform: translateX(0px) translateY(0px); }
+  100% { transform: translateX(50px) translateY(50px); }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  color: var(--primary-dark);
+  margin-bottom: 1rem;
+  position: relative;
+  font-weight: 700;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: var(--gradient-primary);
+  border-radius: 2px;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .certificates-grid {

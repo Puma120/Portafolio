@@ -1,8 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Projects.css';
 
 const Projects = () => {
   const [activeProject, setActiveProject] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    const projectsSection = document.getElementById('projects');
+    if (projectsSection) {
+      observer.observe(projectsSection);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const projects = [
     {
@@ -93,20 +114,20 @@ const Projects = () => {
   return (
     <section id="projects" className="projects">
       <div className="container">
-        <div className="section-header">
-          <h2>Proyectos Destacados</h2>
-          <p>Conoce los proyectos que he desarrollado y en los que estoy trabajando</p>
+        <div className="section-header fade-in">
+          <h2 className="section-title">Proyectos Destacados</h2>
+          <p className="section-subtitle">Conoce los proyectos que he desarrollado y en los que estoy trabajando</p>
         </div>
 
-        <div className="projects-showcase">
-          <div className="project-tabs">
+        <div className={`projects-showcase ${isVisible ? 'animate' : ''}`}>
+          <div className="project-tabs stagger-container">
             {projects.map((project, index) => (
               <button
                 key={project.id}
-                className={`tab ${activeProject === index ? 'active' : ''}`}
+                className={`tab stagger-item hover-lift interactive ${activeProject === index ? 'active' : ''}`}
                 onClick={() => setActiveProject(index)}
               >
-                <div className="tab-icon">
+                <div className="tab-icon pulse">
                   {project.category === 'Hackathon' && '🏆'}
                   {project.category === 'Web App' && '💻'}
                   {project.category === 'Website' && '🌐'}
@@ -116,7 +137,7 @@ const Projects = () => {
                   <div className="tab-title">
                     {project.title}
                     {project.preview && project.videoType === 'mp4' && (
-                      <span className="video-indicator">📹</span>
+                      <span className="video-indicator bounce">📹</span>
                     )}
                   </div>
                   <div className="tab-category">{project.category}</div>
@@ -125,8 +146,8 @@ const Projects = () => {
             ))}
           </div>
 
-          <div className="project-content">
-            <div className="project-card">
+          <div className="project-content slide-in-right">
+            <div className="project-card hover-glow">
               <div className="project-image">
                 {projects[activeProject].preview && projects[activeProject].videoType === 'mp4' ? (
                   <video 
@@ -136,6 +157,10 @@ const Projects = () => {
                     muted
                     playsInline
                     className="project-video"
+                    preload="metadata"
+                    onError={(e) => console.log('Error loading video:', e)}
+                    onLoadStart={() => console.log('Video loading started')}
+                    onLoadedData={() => console.log('Video loaded successfully')}
                   >
                     Tu navegador no soporta videos HTML5.
                   </video>

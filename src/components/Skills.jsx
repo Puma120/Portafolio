@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import './Skills.css';
 
 const Skills = () => {
+  const skillsRef = useRef(null);
+
   const skillCategories = [
     {
       title: 'Frontend',
@@ -42,25 +44,49 @@ const Skills = () => {
     }
   ];
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const progressBars = entry.target.querySelectorAll('.skill-progress');
+            progressBars.forEach((bar, index) => {
+              setTimeout(() => {
+                bar.style.animation = 'fillProgress 1.5s ease-out forwards';
+              }, index * 100);
+            });
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    if (skillsRef.current) {
+      observer.observe(skillsRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="skills" className="skills">
+    <section id="skills" className="skills" ref={skillsRef}>
       <div className="container">
-        <div className="section-header">
-          <h2>Habilidades Técnicas</h2>
-          <p>Tecnologías y herramientas que domino para crear soluciones innovadoras</p>
+        <div className="section-header fade-in">
+          <h2 className="section-title">Habilidades Técnicas</h2>
+          <p className="section-subtitle">Tecnologías y herramientas que domino para crear soluciones innovadoras</p>
         </div>
 
-        <div className="skills-grid">
+        <div className="skills-grid stagger-container">
           {skillCategories.map((category, index) => (
-            <div key={index} className="skill-category">
+            <div key={index} className="skill-category hover-lift stagger-item">
               <div className="category-header">
-                <div className="category-icon">{category.icon}</div>
+                <div className="category-icon pulse">{category.icon}</div>
                 <h3>{category.title}</h3>
               </div>
               
               <div className="skills-list">
                 {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex} className="skill-item">
+                  <div key={skillIndex} className="skill-item hover-glow">
                     <div className="skill-info">
                       <span className="skill-name">{skill.name}</span>
                       <span className="skill-percentage">{skill.level}%</span>
@@ -72,7 +98,9 @@ const Skills = () => {
                           '--width': `${skill.level}%`,
                           animationDelay: `${index * 0.1 + skillIndex * 0.1}s`
                         }}
-                      ></div>
+                      >
+                        <div className="progress-shine"></div>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -81,17 +109,17 @@ const Skills = () => {
           ))}
         </div>
 
-        <div className="additional-skills">
-          <h3>Otras Competencias</h3>
+        <div className="additional-skills fade-in">
+          <h3 className="skills-section-title">Otras Competencias</h3>
           <div className="tags">
-            <span className="tag">Problem Solving</span>
-            <span className="tag">Team Work</span>
-            <span className="tag">Agile Methodologies</span>
-            <span className="tag">Clean Code</span>
-            <span className="tag">Testing</span>
-            <span className="tag">Code Review</span>
-            <span className="tag">Documentation</span>
-            <span className="tag">Performance Optimization</span>
+            <span className="tag interactive hover-lift">Problem Solving</span>
+            <span className="tag interactive hover-lift">Team Work</span>
+            <span className="tag interactive hover-lift">Agile Methodologies</span>
+            <span className="tag interactive hover-lift">Clean Code</span>
+            <span className="tag interactive hover-lift">Testing</span>
+            <span className="tag interactive hover-lift">Code Review</span>
+            <span className="tag interactive hover-lift">Documentation</span>
+            <span className="tag interactive hover-lift">Performance Optimization</span>
           </div>
         </div>
       </div>
