@@ -34,23 +34,21 @@ const Certificates = () => {
     },
     {
       id: 4,
-      title: 'Certificación Pendiente #1',
-      description: 'Nueva certificación en proceso de obtención. Detalles disponibles próximamente.',
-      image: null,
-      issuer: 'Por confirmar',
+      title: 'Certificado Escolar Hackathon Genius Arena',
+      description: 'Certificado escolar por participación destacada en el Hackathon Genius Arena con reconocimiento académico',
+      image: '/Certificado escolar hackathon genius arena.png',
+      issuer: 'Genius Arena Escolar',
       date: '2025',
-      category: 'Próximamente',
-      pending: true
+      category: 'Académico'
     },
     {
       id: 5,
-      title: 'Certificación Pendiente #2',
-      description: 'Otra certificación importante en proceso. Información completa disponible pronto.',
-      image: null,
-      issuer: 'Por confirmar',
+      title: 'Hackathon Ibero - 3er Lugar',
+      description: 'Reconocimiento por obtener el tercer lugar en el prestigioso Hackathon de la Universidad Iberoamericana',
+      image: '/Certificado hackathon Ibero 3er Lugar.png',
+      issuer: 'Universidad Iberoamericana',
       date: '2025',
-      category: 'Próximamente',
-      pending: true
+      category: '3er Lugar'
     }
   ];
 
