@@ -201,12 +201,12 @@
 /* Profile Photo Container */
 .profile-photo-container {
   position: absolute;
-  top: 45%;
-  left: 47%;
+  top: 48%;
+  left: 49%;
   transform: translate(-50%, -50%);
   width: 180px;
   height: 180px;
-  z-index: 1; /* Detrás de los logos */
+  z-index: 2; /* Un poco más arriba para mejor visibilidad */
   animation: fadeInScale 1s ease-out 0.5s forwards;
   opacity: 0;
 }
@@ -216,15 +216,16 @@
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-  border: 2px solid rgba(5, 242, 219, 0.3);
+  border: 3px solid rgba(5, 242, 219, 0.6);
   transition: all var(--transition-normal);
-  opacity: 0.8;
+  opacity: 1;
+  box-shadow: 0 8px 32px rgba(5, 242, 219, 0.3);
 }
 
 .profile-photo:hover {
-  border-color: rgba(5, 242, 219, 0.6);
+  border-color: rgba(5, 242, 219, 0.9);
   transform: scale(1.05);
-  opacity: 1;
+  box-shadow: 0 12px 40px rgba(5, 242, 219, 0.5);
 }
 
 .profile-photo-placeholder {
@@ -273,15 +274,15 @@
 
 .profile-frame {
   position: absolute;
-  top: -3px;
-  left: -3px;
-  right: -3px;
-  bottom: -3px;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
   border-radius: 50%;
-  background: conic-gradient(from 0deg, rgba(5, 242, 219, 0.4), rgba(217, 4, 142, 0.4), rgba(242, 5, 203, 0.4), rgba(2, 83, 115, 0.4), rgba(5, 242, 219, 0.4));
+  background: conic-gradient(from 0deg, rgba(5, 242, 219, 0.8), rgba(217, 4, 142, 0.8), rgba(242, 5, 203, 0.8), rgba(2, 83, 115, 0.8), rgba(5, 242, 219, 0.8));
   animation: rotateFrame 6s linear infinite;
   z-index: -1;
-  opacity: 0.6;
+  opacity: 0.9;
 }
 
 @keyframes rotateFrame {
@@ -302,7 +303,7 @@
   transition: all var(--transition-normal);
   opacity: 0;
   transform: scale(0.8);
-  z-index: 5; /* Por encima de la foto */
+  z-index: 3; /* Por encima de la foto para mantener interactividad */
 }
 
 .floating-card:hover {
