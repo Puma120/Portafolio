@@ -56,27 +56,28 @@ const About = () => {
         
         <div className="about-content">
           <div className="about-text slide-in-left">
-            <h3>Desarrollador Full Stack Apasionado</h3>
+            <h3>Desarrollador Frontend Especializado</h3>
             <p>
-              Soy un desarrollador con experiencia en tecnologías modernas y una pasión genuina 
-              por crear soluciones innovadoras. Mi enfoque se centra en escribir código limpio, 
-              escalable y eficiente que resuelva problemas reales.
+              Soy un desarrollador especializado en frontend con pasión por crear experiencias de usuario 
+              excepcionales. Mi enfoque principal está en React, JavaScript, HTML/CSS y diseño UX/UI. 
+              Aunque tengo conocimientos en backend, mi verdadera especialización y pasión se encuentra 
+              en el desarrollo frontend y la creación de interfaces modernas y funcionales.
             </p>
             
             <div className="achievements">
               <div className="achievement hover-lift">
-                <h4>🏆 2do Lugar Hackathon Nacional</h4>
-                <p>Reconocimiento por innovación y desarrollo de soluciones tecnológicas</p>
+                <h4>🖥️ Especialización Frontend</h4>
+                <p>Enfoque principal en React, JavaScript y diseño de interfaces de usuario</p>
               </div>
               
               <div className="achievement hover-lift">
-                <h4>💼 Aplicaciones en Producción</h4>
-                <p>He desarrollado aplicaciones web completas para diferentes sectores</p>
+                <h4>💼 Aplicaciones Web Interactivas</h4>
+                <p>He desarrollado aplicaciones frontend completas con experiencias de usuario excepcionales</p>
               </div>
               
               <div className="achievement hover-lift">
-                <h4>📚 Aprendizaje Continuo</h4>
-                <p>Constantemente actualizándome con las últimas tecnologías y mejores prácticas</p>
+                <h4>📚 Innovación Continua</h4>
+                <p>Constantemente explorando nuevas tecnologías frontend y tendencias de diseño</p>
               </div>
             </div>
           </div>

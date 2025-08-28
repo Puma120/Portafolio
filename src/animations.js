@@ -206,6 +206,48 @@ class AnimationManager {
     typeWriter();
   }
 
+  // Typewriter effect specifically for hero title
+  static typewriterEffect(element, speed = 80) {
+    if (!element) return;
+    
+    const fullText = "Hola, soy Pablo";
+    element.innerHTML = '';
+    element.style.borderRight = '0.15em solid rgba(255, 255, 255, 0.8)';
+    element.style.animation = 'blink-caret 0.75s step-end infinite';
+    
+    let i = 0;
+    const typeWriter = () => {
+      if (i <= fullText.length) {
+        const currentText = fullText.substring(0, i);
+        
+        // Si hemos llegado a "Pablo", aplicar el span highlight
+        if (currentText.includes('Pablo')) {
+          const beforePablo = currentText.substring(0, currentText.indexOf('Pablo'));
+          const pabloText = currentText.substring(currentText.indexOf('Pablo'));
+          element.innerHTML = beforePablo + '<span class="highlight">' + pabloText + '</span>';
+        } else {
+          element.textContent = currentText;
+        }
+        
+        i++;
+        setTimeout(typeWriter, speed);
+      } else {
+        // Completar con HTML final
+        element.innerHTML = 'Hola, soy <span class="highlight">Pablo</span>';
+        
+        // Activar animación del highlight después de un momento
+        setTimeout(() => {
+          const highlight = element.querySelector('.highlight');
+          if (highlight) {
+            highlight.style.animation = 'gradientShift 3s ease-in-out infinite';
+          }
+        }, 500);
+      }
+    };
+    
+    setTimeout(typeWriter, 500); // Delay inicial
+  }
+
   // Number Counter Animation
   static animateCounter(element, target, duration = 2000) {
     const start = 0;

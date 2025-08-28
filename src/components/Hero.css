@@ -1,11 +1,22 @@
 .hero {
-  min-height: calc(100vh - 80px);
+  min-height: 100vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, #012326 0%, #025373 50%, #05F2DB 100%);
+  background: linear-gradient(135deg, 
+    #030206 0%, 
+    #021233 15%, 
+    #710755 30%, 
+    #69021E 45%, 
+    #AA0235 60%, 
+    #69021E 75%, 
+    #710755 85%, 
+    #021233 95%, 
+    #030206 100%);
   color: white;
   position: relative;
   overflow: hidden;
+  background-size: 400% 400%;
+  animation: gradientFlow 8s ease-in-out infinite;
 }
 
 .hero::before {
@@ -48,15 +59,29 @@
   line-height: 1.2;
   color: white;
   position: relative;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.hero-title.typewriter-active {
+  opacity: 1;
+  visibility: visible;
+  border-right: 0.15em solid rgba(255, 255, 255, 0.8);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from, to { border-color: transparent; }
+  50% { border-color: rgba(255, 255, 255, 0.8); }
 }
 
 .highlight {
-  background: linear-gradient(45deg, #05F2DB, #D9048E, #F205CB);
+  background: linear-gradient(45deg, #05F2DB, #d661ad, #f205cbbf);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradientShift 3s ease-in-out infinite;
+  animation: gradientShift 3s ease-in-out infinite 4.5s;
 }
 
 @keyframes gradientShift {
@@ -108,14 +133,15 @@
 }
 
 .btn-primary {
-  background: linear-gradient(45deg, #025373, #05F2DB, #D9048E);
+  background: linear-gradient(45deg, #e022e0, #17dfd5, #c237e4);
   color: white;
-  box-shadow: 0 4px 15px rgba(5, 242, 219, 0.4);
+  box-shadow: 0 4px 15px rgba(170, 2, 156, 0.4);
+  background-color: blue;
 }
 
 .btn-primary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(5, 242, 219, 0.6);
+  box-shadow: 0 8px 25px rgba(170, 2, 53, 0.6);
 }
 
 .btn-shine {
@@ -147,7 +173,7 @@
 .bg-circle {
   position: absolute;
   border-radius: 50%;
-  background: rgba(5, 242, 219, 0.1);
+  background: rgba(170, 2, 53, 0.1);
   animation: floatCircle 6s ease-in-out infinite;
 }
 
@@ -309,7 +335,7 @@
 .floating-card:hover {
   transform: translateY(-10px) scale(1.05);
   background: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 20px 40px rgba(5, 242, 219, 0.3);
+  box-shadow: 0 20px 40px rgba(170, 2, 53, 0.3);
 }
 
 .card-glow {
@@ -319,7 +345,7 @@
   right: 0;
   bottom: 0;
   border-radius: 20px;
-  background: linear-gradient(45deg, rgba(5, 242, 219, 0.2), rgba(210, 4, 142, 0.2));
+  background: linear-gradient(45deg, rgba(170, 2, 53, 0.2), rgba(105, 2, 30, 0.2));
   opacity: 0;
   transition: opacity var(--transition-normal);
   z-index: -1;
@@ -585,5 +611,24 @@
 
   .card-text {
     font-size: 0.6rem;
+  }
+}
+
+/* Animación del gradiente extendido */
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }

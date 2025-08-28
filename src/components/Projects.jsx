@@ -29,14 +29,14 @@ const Projects = () => {
     {
       id: 1,
       title: 'Sistema de Consultoría Nutricional',
-      description: 'Aplicación web completa para consultorios de nutrición que permite a los pacientes completar cuestionarios de evaluación nutricional y enviar la información directamente al doctor para optimizar las consultas.',
+      description: 'Interfaz frontend completa para consultorios de nutrición con cuestionarios interactivos y dashboard intuitivo. Desarrollé toda la experiencia de usuario y la interfaz, implementando un diseño responsive y funcional.',
       technologies: ['React', 'Python', 'Firebase', 'JavaScript'],
       features: [
-        'Sistema de cuestionarios interactivos',
-        'Dashboard para doctores',
-        'Gestión de pacientes',
-        'Reportes automáticos',
-        'Interfaz responsive'
+        'Interfaz de usuario intuitiva',
+        'Cuestionarios interactivos con React',
+        'Dashboard responsive',
+        'Diseño UX/UI optimizado',
+        'Componentes reutilizables'
       ],
       status: 'Completado',
       category: 'Web App',
@@ -46,14 +46,14 @@ const Projects = () => {
     {
       id: 2,
       title: 'Sitio Web Casa de Modas',
-      description: 'Página web elegante y moderna para una casa de modas, diseñada para mostrar colecciones, catálogos de productos y establecer la presencia digital de la marca en el mercado de la moda.',
+      description: 'Desarrollo frontend completo de una página web elegante y moderna para casa de modas. Enfoque total en la experiencia visual, animaciones suaves y diseño responsive que refleja la elegancia de la marca.',
       technologies: ['React', 'Vite', 'CSS3', 'JavaScript'],
       features: [
-        'Galería de productos interactiva',
-        'Catálogo de colecciones',
-        'Diseño responsive',
-        'Optimización SEO',
-        'Interfaz moderna y elegante'
+        'Diseño visual impactante',
+        'Galería interactiva con React',
+        'Animaciones CSS avanzadas',
+        'Diseño mobile-first',
+        'Experiencia de usuario premium'
       ],
       status: 'Completado',
       category: 'Website',
@@ -63,14 +63,14 @@ const Projects = () => {
     {
       id: 3,
       title: 'Proyecto Hackathon Nacional - 2do Lugar 🏆',
-      description: 'Solución innovadora desarrollada durante un hackathon nacional donde obtuve el segundo lugar. El proyecto aborda un problema real utilizando tecnologías modernas y pensamiento creativo.',
+      description: 'Desarrollo de la interfaz frontend para una solución innovadora que obtuvo el segundo lugar en hackathon nacional. Me enfoqué en crear una experiencia de usuario excepcional bajo presión de tiempo.',
       technologies: ['Python', 'React', 'MongoDB', 'API REST'],
       features: [
-        'Solución innovadora',
-        'Arquitectura escalable',
-        'API REST robusta',
-        'Interface intuitiva',
-        'Impacto social positivo'
+        'Desarrollo frontend bajo presión',
+        'Interfaz innovadora con React',
+        'UX/UI design efectivo',
+        'Prototipado rápido',
+        'Solución visualmente impactante'
       ],
       status: '2do Lugar Nacional',
       category: 'Hackathon',
@@ -116,7 +116,7 @@ const Projects = () => {
       <div className="container">
         <div className="section-header fade-in">
           <h2 className="section-title">Proyectos Destacados</h2>
-          <p className="section-subtitle">Conoce los proyectos que he desarrollado y en los que estoy trabajando</p>
+          <p className="section-subtitle">Interfaces y experiencias de usuario que he desarrollado con pasión y dedicación</p>
         </div>
 
         <div className={`projects-showcase ${isVisible ? 'animate' : ''}`}>

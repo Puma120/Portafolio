@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { AnimationManager } from '../animations';
 import './Hero.css';
 
 const Hero = () => {
@@ -6,10 +7,41 @@ const Hero = () => {
   const subtitleRef = useRef(null);
 
   useEffect(() => {
-    // Animate title with typewriter effect
-    if (titleRef.current) {
-      titleRef.current.classList.add('typewriter');
-    }
+    // Función typewriter simple
+    const typewriterEffect = () => {
+      if (!titleRef.current) return;
+      
+      const text = "Hola, soy Pablo";
+      titleRef.current.innerHTML = '';
+      titleRef.current.classList.add('typewriter-active');
+      
+      let i = 0;
+      const timer = setInterval(() => {
+        if (i < text.length) {
+          const currentText = text.substring(0, i + 1);
+          if (currentText.includes('Pablo')) {
+            const beforePablo = currentText.substring(0, currentText.indexOf('Pablo'));
+            const pabloText = currentText.substring(currentText.indexOf('Pablo'));
+            titleRef.current.innerHTML = beforePablo + '<span class="highlight">' + pabloText + '</span>';
+          } else {
+            titleRef.current.textContent = currentText;
+          }
+          i++;
+        } else {
+          clearInterval(timer);
+          // Activar animación del highlight
+          setTimeout(() => {
+            const highlight = titleRef.current.querySelector('.highlight');
+            if (highlight) {
+              highlight.style.animation = 'gradientShift 3s ease-in-out infinite';
+            }
+          }, 500);
+        }
+      }, 100);
+    };
+
+    // Iniciar typewriter después de 1 segundo
+    const startTimer = setTimeout(typewriterEffect, 1000);
 
     // Stagger animation for floating cards
     const cards = document.querySelectorAll('.floating-card');
@@ -17,6 +49,10 @@ const Hero = () => {
       card.style.animationDelay = `${index * 0.2}s`;
       card.classList.add('bounce-in');
     });
+
+    return () => {
+      clearTimeout(startTimer);
+    };
   }, []);
 
   return (
@@ -24,17 +60,16 @@ const Hero = () => {
       <div className="hero-container">
         <div className="hero-content stagger-container">
           <h1 ref={titleRef} className="hero-title stagger-item">
-            Hola, soy <span className="highlight">Pablo</span>
           </h1>
           <h2 ref={subtitleRef} className="hero-subtitle stagger-item">
-            Desarrollador Full Stack
+            Desarrollador Frontend Especializado
           </h2>
           <p className="hero-description stagger-item">
-            Especializado en desarrollo web moderno con experiencia en Python, React, JavaScript, 
-            bases de datos SQL y NoSQL. Apasionado en el uso de mi imaginación y el diseño contemporáneo.
+            Especializado en desarrollo frontend con React, JavaScript, HTML/CSS y diseño UX/UI. 
+            Con conocimientos en backend para proyectos full stack. Apasionado por crear experiencias de usuario excepcionales y interfaces modernas.
           </p>
           <div className="hero-buttons stagger-item">
-            <button 
+            <button primary
               className="btn btn-primary hover-lift interactive"
               onClick={() => document.getElementById('projects').scrollIntoView({ behavior: 'smooth' })}
             >
@@ -55,7 +90,7 @@ const Hero = () => {
           <div className="profile-photo-container hover-glow interactive">
             <img 
               src="/Foto.jpeg" 
-              alt="Pablo - Desarrollador Full Stack"
+              alt="Pablo - Desarrollador Frontend Especializado"
               className="profile-photo"
             />
             <div className="profile-frame"></div>
@@ -63,13 +98,13 @@ const Hero = () => {
 
           <div className="floating-elements">
             <div className="floating-card hover-glow interactive" data-tilt>
-              <div className="card-icon">💻</div>
-              <div className="card-text">Desarrollo Web</div>
+              <div className="card-icon">🎨</div>
+              <div className="card-text">Frontend</div>
               <div className="card-glow"></div>
             </div>
             <div className="floating-card hover-glow interactive" data-tilt>
-              <div className="card-icon">🚀</div>
-              <div className="card-text">Innovación</div>
+              <div className="card-icon">⚛️</div>
+              <div className="card-text">React</div>
               <div className="card-glow"></div>
             </div>
             <div className="floating-card hover-glow interactive" data-tilt>
@@ -78,18 +113,18 @@ const Hero = () => {
               <div className="card-glow"></div>
             </div>
             <div className="floating-card hover-glow interactive" data-tilt>
-              <div className="card-icon">🐍</div>
-              <div className="card-text">Python</div>
+              <div className="card-icon">｡🇯‌🇸‌</div>
+              <div className="card-text">JavaScript</div>
               <div className="card-glow"></div>
             </div>
             <div className="floating-card hover-glow interactive" data-tilt>
-              <div className="card-icon">🗄️</div>
-              <div className="card-text">Bases de Datos</div>
+              <div className="card-icon">🎯</div>
+              <div className="card-text">UX/UI Design</div>
               <div className="card-glow"></div>
             </div>
             <div className="floating-card hover-glow interactive" data-tilt>
               <div className="card-icon">⚡</div>
-              <div className="card-text">Full Stack</div>
+              <div className="card-text">Responsive</div>
               <div className="card-glow"></div>
             </div>
           </div>

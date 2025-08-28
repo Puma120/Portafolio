@@ -6,40 +6,43 @@ const Skills = () => {
 
   const skillCategories = [
     {
-      title: 'Frontend',
+      title: 'Frontend (Especialización)',
       icon: '🎨',
       skills: [
         { name: 'React', level: 90 },
-        { name: 'JavaScript', level: 85 },
+        { name: 'JavaScript', level: 88 },
         { name: 'HTML/CSS', level: 95 },
+        { name: 'Responsive Design', level: 92 },
         { name: 'Vite', level: 80 }
       ]
     },
     {
-      title: 'Backend',
+      title: 'UX/UI Design',
+      icon: '🎯',
+      skills: [
+        { name: 'User Experience', level: 85 },
+        { name: 'Interface Design', level: 80 },
+        { name: 'Figma/Design Tools', level: 85 },
+        { name: 'Animation/CSS', level: 85 }
+      ]
+    },
+    {
+      title: 'Backend (Conocimientos)',
       icon: '⚙️',
       skills: [
-        { name: 'Python', level: 88 },
-        { name: 'Node.js', level: 75 },
-        { name: 'API REST', level: 85 }
+        { name: 'Python', level: 90 },
+        { name: 'Node.js', level: 80 },
+        { name: 'API REST', level: 65 }
       ]
     },
     {
-      title: 'Bases de Datos',
-      icon: '🗄️',
-      skills: [
-        { name: 'SQL', level: 80 },
-        { name: 'MongoDB', level: 75 },
-        { name: 'Firebase', level: 85 }
-      ]
-    },
-    {
-      title: 'Herramientas',
+      title: 'Herramientas & Desarrollo',
       icon: '🛠️',
       skills: [
         { name: 'Git', level: 85 },
         { name: 'VS Code', level: 90 },
-        { name: 'Responsive Design', level: 90 }
+        { name: 'Firebase', level: 80 },
+        { name: 'Performance Optimization', level: 85 }
       ]
     }
   ];
@@ -73,7 +76,7 @@ const Skills = () => {
       <div className="container">
         <div className="section-header fade-in">
           <h2 className="section-title">Habilidades Técnicas</h2>
-          <p className="section-subtitle">Tecnologías y herramientas que domino para crear soluciones innovadoras</p>
+          <p className="section-subtitle">Mi especialización en frontend y conocimientos complementarios para desarrollo completo</p>
         </div>
 
         <div className="skills-grid stagger-container">
@@ -112,14 +115,14 @@ const Skills = () => {
         <div className="additional-skills fade-in">
           <h3 className="skills-section-title">Otras Competencias</h3>
           <div className="tags">
-            <span className="tag interactive hover-lift">Problem Solving</span>
-            <span className="tag interactive hover-lift">Team Work</span>
-            <span className="tag interactive hover-lift">Agile Methodologies</span>
-            <span className="tag interactive hover-lift">Clean Code</span>
-            <span className="tag interactive hover-lift">Testing</span>
-            <span className="tag interactive hover-lift">Code Review</span>
-            <span className="tag interactive hover-lift">Documentation</span>
+            <span className="tag interactive hover-lift">UI/UX Design</span>
+            <span className="tag interactive hover-lift">Frontend Architecture</span>
+            <span className="tag interactive hover-lift">Component Design</span>
+            <span className="tag interactive hover-lift">User Experience</span>
+            <span className="tag interactive hover-lift">Cross-browser Compatibility</span>
+            <span className="tag interactive hover-lift">Mobile-First Design</span>
             <span className="tag interactive hover-lift">Performance Optimization</span>
+            <span className="tag interactive hover-lift">Accessibility (a11y)</span>
           </div>
         </div>
       </div>

@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Certificates.css';
 
 const Certificates = () => {
   const [selectedCertificate, setSelectedCertificate] = useState(null);
+
+  // Cleanup en caso de que el componente se desmonte con modal abierto
+  useEffect(() => {
+    return () => {
+      document.body.classList.remove('modal-open');
+    };
+  }, []);
 
   const certificates = [
     {
@@ -55,11 +62,13 @@ const Certificates = () => {
   const openModal = (certificate) => {
     if (!certificate.pending) {
       setSelectedCertificate(certificate);
+      document.body.classList.add('modal-open');
     }
   };
 
   const closeModal = () => {
     setSelectedCertificate(null);
+    document.body.classList.remove('modal-open');
   };
 
   return (

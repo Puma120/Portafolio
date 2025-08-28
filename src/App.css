@@ -1,16 +1,16 @@
 /* CSS Variables */
 :root {
   /* Colors */
-  --primary-dark: #012326;
-  --primary-blue: #025373;
-  --primary-cyan: #05F2DB;
-  --accent-color: #D9048E;
-  --secondary-accent: #F205CB;
+  --primary-dark: #030206;
+  --primary-blue: #021233;
+  --primary-cyan: #AA0235;
+  --accent-color: #69021E;
+  --secondary-accent: #710755;
   
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #025373 0%, #05F2DB 100%);
-  --gradient-secondary: linear-gradient(135deg, #012326 0%, #025373 100%);
-  --gradient-accent: linear-gradient(135deg, #D9048E 0%, #F205CB 100%);
+  --gradient-primary: linear-gradient(135deg, #AA0235 0%, #69021E 100%);
+  --gradient-secondary: linear-gradient(135deg, #030206 0%, #021233 100%);
+  --gradient-accent: linear-gradient(135deg, #710755 0%, #AA0235 100%);
   
   /* Text Colors */
   --text-color: #2c3e50;
@@ -124,7 +124,7 @@ main {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(5, 242, 219, 0.3);
+  box-shadow: 0 10px 20px rgba(170, 2, 53, 0.3);
 }
 
 .btn-secondary {
@@ -260,7 +260,7 @@ main {
 }
 
 .hover-glow:hover {
-  box-shadow: 0 0 20px rgba(5, 242, 219, 0.3);
+  box-shadow: 0 0 20px rgba(170, 2, 53, 0.3);
 }
 
 .interactive {
@@ -311,13 +311,13 @@ main {
 
 /* Selection */
 ::selection {
-  background: rgba(5, 242, 219, 0.3);
+  background: rgba(170, 2, 53, 0.3);
   color: var(--primary-dark);
 }
 
 /* Focus states */
 *:focus {
-  outline: 3px solid rgba(5, 242, 219, 0.3);
+  outline: 3px solid rgba(170, 2, 53, 0.3);
   outline-offset: 2px;
 }
 
