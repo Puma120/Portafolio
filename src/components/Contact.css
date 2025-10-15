@@ -30,8 +30,14 @@
     linear-gradient(90deg, rgba(255, 0, 110, 0.03) 1px, transparent 1px),
     linear-gradient(rgba(255, 0, 110, 0.03) 1px, transparent 1px);
   background-size: 30px 30px;
-  animation: gridContact 15s linear infinite;
   z-index: 0;
+  will-change: transform;
+}
+
+@media (min-width: 768px) {
+  .contact::after {
+    animation: gridContact 15s linear infinite;
+  }
 }
 
 @keyframes gridContact {

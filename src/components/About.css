@@ -30,8 +30,14 @@
     linear-gradient(90deg, rgba(255, 0, 110, 0.03) 1px, transparent 1px),
     linear-gradient(rgba(255, 0, 110, 0.03) 1px, transparent 1px);
   background-size: 50px 50px;
-  animation: gridShiftAbout 18s linear infinite;
   z-index: 0;
+  will-change: transform;
+}
+
+@media (min-width: 768px) {
+  .about::after {
+    animation: gridShiftAbout 18s linear infinite;
+  }
 }
 
 @keyframes gridShiftAbout {

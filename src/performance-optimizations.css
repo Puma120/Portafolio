@@ -1,0 +1,64 @@
+/* Performance Optimizations for Mobile Devices */
+
+/* Reducir blur en móvil */
+@media (max-width: 767px) {
+  /* Reducir backdrop-filter en todos los componentes */
+  .skill-category,
+  .achievement-card,
+  .project-card,
+  .certificate-card,
+  .contact-method,
+  .social-link,
+  .contact-form {
+    backdrop-filter: blur(5px) !important;
+  }
+
+  /* Reducir sombras complejas */
+  .hero-profile-photo::before,
+  .skill-category::before,
+  .achievement-card::before {
+    opacity: 0.3 !important;
+  }
+
+  /* Desactivar algunas animaciones en móvil */
+  .floating-card,
+  .floating-stat {
+    animation: none !important;
+  }
+
+  /* Reducir complejidad de gradientes */
+  h1, h2, h3 {
+    animation: none !important;
+  }
+
+  /* Optimizar scroll suave */
+  * {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Optimizaciones para hardware acceleration */
+.hero,
+.skills,
+.projects,
+.about,
+.contact,
+.certificates {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Optimizar imágenes */
+img {
+  content-visibility: auto;
+}
+
+/* Lazy loading para elementos fuera de viewport */
+.skill-category,
+.project-card,
+.certificate-card,
+.achievement-card {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 400px;
+}

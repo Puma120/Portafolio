@@ -25,8 +25,14 @@
     linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px),
     linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px);
   background-size: 60px 60px;
-  animation: gridMove 20s linear infinite;
   opacity: 0.5;
+  will-change: transform;
+}
+
+@media (min-width: 768px) {
+  .hero::before {
+    animation: gridMove 20s linear infinite;
+  }
 }
 
 @keyframes gridMove {
@@ -34,17 +40,20 @@
   100% { transform: translate(60px, 60px); }
 }
 
-/* Scanning Lines Effect */
-.hero::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
-  animation: scan 4s ease-in-out infinite;
-  box-shadow: 0 0 20px rgba(0, 243, 255, 0.8);
+/* Scanning Lines Effect - Solo en desktop */
+@media (min-width: 768px) {
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+    animation: scan 4s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.8);
+    will-change: top, opacity;
+  }
 }
 
 @keyframes scan {

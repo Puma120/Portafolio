@@ -30,8 +30,14 @@
     linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px),
     linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px);
   background-size: 40px 40px;
-  animation: gridSlide 15s linear infinite;
   z-index: 0;
+  will-change: transform;
+}
+
+@media (min-width: 768px) {
+  .skills::after {
+    animation: gridSlide 15s linear infinite;
+  }
 }
 
 @keyframes gridSlide {

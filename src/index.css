@@ -110,7 +110,13 @@ body::before {
     radial-gradient(circle at 40% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
   pointer-events: none;
   z-index: 0;
-  animation: backgroundPulse 15s ease-in-out infinite;
+  will-change: opacity;
+}
+
+@media (min-width: 768px) {
+  body::before {
+    animation: backgroundPulse 15s ease-in-out infinite;
+  }
 }
 
 body::after {
@@ -126,7 +132,13 @@ body::after {
   background-size: 50px 50px;
   pointer-events: none;
   z-index: 0;
-  animation: gridScroll 20s linear infinite;
+  will-change: background-position;
+}
+
+@media (min-width: 768px) {
+  body::after {
+    animation: gridScroll 20s linear infinite;
+  }
 }
 
 @keyframes backgroundPulse {
