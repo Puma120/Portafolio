@@ -1,27 +1,27 @@
 /* CSS Variables */
 :root {
-  /* Colors */
-  --primary-dark: #030206;
-  --primary-blue: #021233;
-  --primary-cyan: #AA0235;
-  --accent-color: #69021E;
-  --secondary-accent: #710755;
+  /* Futuristic Cyberpunk Colors */
+  --primary-dark: #0a0e27;
+  --primary-blue: #0066ff;
+  --primary-cyan: #00f3ff;
+  --accent-color: #ff006e;
+  --secondary-accent: #8b5cf6;
   
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #AA0235 0%, #69021E 100%);
-  --gradient-secondary: linear-gradient(135deg, #030206 0%, #021233 100%);
-  --gradient-accent: linear-gradient(135deg, #710755 0%, #AA0235 100%);
+  --gradient-primary: linear-gradient(135deg, #00f3ff 0%, #8b5cf6 50%, #ff006e 100%);
+  --gradient-secondary: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+  --gradient-accent: linear-gradient(135deg, #ff006e 0%, #ff4500 100%);
   
   /* Text Colors */
-  --text-color: #2c3e50;
-  --text-muted: #7f8c8d;
+  --text-color: #e2e8f0;
+  --text-muted: #94a3b8;
   --text-light: #ffffff;
   
   /* Shadows */
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.6);
   
   /* Transitions */
   --transition-fast: 0.2s ease;
@@ -47,22 +47,26 @@ html {
 }
 
 body {
-  font-family: 'Inter', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  font-family: 'Rajdhani', 'Space Grotesk', 'Segoe UI', sans-serif;
   line-height: 1.6;
   color: var(--text-color);
   overflow-x: hidden;
-  background: #ffffff;
+  background: var(--primary-dark);
 }
 
 .App {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 1;
 }
 
 main {
   flex: 1;
-  margin-top: 80px; /* Space for fixed header */
+  margin-top: 80px;
+  position: relative;
+  z-index: 1;
 }
 
 /* Utility Classes */
@@ -75,67 +79,129 @@ main {
 .section-header {
   text-align: center;
   margin-bottom: 4rem;
+  position: relative;
 }
 
 .section-header h2 {
-  font-size: 2.5rem;
-  color: var(--primary-dark);
-  margin-bottom: 1rem;
+  font-size: 3rem;
+  font-family: 'Orbitron', sans-serif;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.5rem;
   position: relative;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  animation: gradientShift 3s ease infinite;
+  background-size: 200% 200%;
 }
 
 .section-header h2::after {
   content: '';
   position: absolute;
-  bottom: -10px;
+  bottom: -15px;
   left: 50%;
   transform: translateX(-50%);
-  width: 60px;
-  height: 3px;
+  width: 100px;
+  height: 4px;
   background: var(--gradient-primary);
-  border-radius: 2px;
+  border-radius: 4px;
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.6);
 }
 
 .section-header p {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: var(--text-muted);
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
+  line-height: 1.8;
 }
 
-/* Buttons */
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Futuristic Buttons */
 .btn {
   display: inline-block;
-  padding: 0.75rem 2rem;
-  border: none;
-  border-radius: 50px;
+  padding: 14px 36px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-full);
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
+  font-family: 'Orbitron', sans-serif;
   text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal);
   text-align: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+  z-index: -1;
+}
+
+.btn:hover::before {
+  width: 300px;
+  height: 300px;
 }
 
 .btn-primary {
   background: var(--gradient-primary);
   color: white;
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+  border: 2px solid var(--primary-cyan);
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(170, 2, 53, 0.3);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 0 40px rgba(0, 243, 255, 0.8), 0 10px 30px rgba(0, 0, 0, 0.5);
+  border-color: var(--accent-color);
 }
 
 .btn-secondary {
   background: transparent;
-  color: var(--primary-blue);
-  border: 2px solid var(--primary-blue);
+  color: var(--primary-cyan);
+  border: 2px solid var(--primary-cyan);
+  box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
 }
 
 .btn-secondary:hover {
-  background: var(--primary-blue);
+  background: rgba(0, 243, 255, 0.1);
   color: white;
+  box-shadow: 0 0 30px rgba(0, 243, 255, 0.6);
+  transform: translateY(-3px) scale(1.05);
+}
+
+/* Button shine effect */
+.btn-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.btn:hover .btn-shine {
+  left: 100%;
 }
 
 /* Animations */
@@ -293,32 +359,37 @@ main {
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--primary-dark);
+  border-left: 1px solid rgba(0, 243, 255, 0.2);
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--gradient-primary);
-  border-radius: 4px;
+  border-radius: 6px;
+  border: 2px solid var(--primary-dark);
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--gradient-accent);
+  box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
 }
 
 /* Selection */
 ::selection {
-  background: rgba(170, 2, 53, 0.3);
-  color: var(--primary-dark);
+  background: rgba(0, 243, 255, 0.3);
+  color: var(--text-light);
+  text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
 }
 
 /* Focus states */
 *:focus {
-  outline: 3px solid rgba(170, 2, 53, 0.3);
-  outline-offset: 2px;
+  outline: 2px solid var(--primary-cyan);
+  outline-offset: 3px;
+  box-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
 }
 
 /* Responsive typography */
