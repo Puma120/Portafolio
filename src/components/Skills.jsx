@@ -6,7 +6,7 @@ const Skills = () => {
 
   const skillCategories = [
     {
-      title: 'Frontend (Especialización)',
+      title: 'Frontend',
       icon: '🎨',
       skills: [
         { name: 'React', level: 90 },
@@ -27,22 +27,23 @@ const Skills = () => {
       ]
     },
     {
-      title: 'Backend (Conocimientos)',
+      title: 'Backend ',
       icon: '⚙️',
       skills: [
         { name: 'Python', level: 90 },
         { name: 'Node.js', level: 80 },
-        { name: 'API REST', level: 65 }
+        { name: 'API REST', level: 85 }
       ]
     },
     {
-      title: 'Herramientas & Desarrollo',
+      title: 'Herramientas',
       icon: '🛠️',
       skills: [
-        { name: 'Git', level: 85 },
-        { name: 'VS Code', level: 90 },
+        { name: 'Git', level: 95 },
+        { name: 'VS Code', level: 97 },
         { name: 'Firebase', level: 80 },
-        { name: 'Performance Optimization', level: 85 }
+        { name: 'Performance Optimization', level: 85 },
+        { name: 'Render', level: 92 }
       ]
     }
   ];
