@@ -79,19 +79,20 @@ const Projects = () => {
     },
     {
       id: 4,
-      title: 'Proyecto en Desarrollo #1',
-      description: 'Nuevo proyecto emocionante en desarrollo que incorporará las últimas tecnologías y mejores prácticas. Detalles completos disponibles próximamente.',
-      technologies: ['React', 'Python', 'SQL'],
+      title: 'Portafolio Web - Diseño Textil',
+      description: 'Desarrollo de un portafolio web personalizado para una estudiante de diseño textil. Creé una experiencia visual única siguiendo su estilo artístico, con una paleta de colores y ambiente específicos que reflejan su identidad como diseñadora.',
+      technologies: ['React', 'Vite', 'CSS3', 'JavaScript'],
       features: [
-        'En planificación',
-        'Arquitectura moderna',
-        'Mejores prácticas',
-        'Diseño innovador'
+        'Diseño personalizado a su estilo',
+        'Galería de trabajos textiles',
+        'Paleta de colores personalizada',
+        'Diseño responsive',
+        'Experiencia visual artística'
       ],
-      status: 'En Desarrollo',
-      category: 'Coming Soon',
-      preview: null,
-      videoType: null
+      status: 'Completado',
+      category: 'Portfolio',
+      preview: '/Grabacion portafolio daniela.mp4',
+      videoType: 'mp4'
     },
     {
       id: 5,
@@ -119,107 +120,115 @@ const Projects = () => {
           <p className="section-subtitle">Interfaces y experiencias de usuario que he desarrollado con pasión y dedicación</p>
         </div>
 
-        <div className={`projects-showcase ${isVisible ? 'animate' : ''}`}>
-          <div className="project-tabs stagger-container">
-            {projects.map((project, index) => (
-              <button
-                key={project.id}
-                className={`tab stagger-item hover-lift interactive ${activeProject === index ? 'active' : ''}`}
-                onClick={() => setActiveProject(index)}
-              >
-                <div className="tab-icon pulse">
-                  {project.category === 'Hackathon' && '🏆'}
-                  {project.category === 'Web App' && '💻'}
-                  {project.category === 'Website' && '🌐'}
-                  {project.category === 'Coming Soon' && '🚀'}
-                </div>
-                <div className="tab-info">
-                  <div className="tab-title">
-                    {project.title}
-                    {project.preview && project.videoType === 'mp4' && (
-                      <span className="video-indicator bounce">📹</span>
-                    )}
+        {/* Tabs de navegación */}
+        <div className={`project-tabs-nav ${isVisible ? 'animate' : ''}`}>
+          {projects.map((project, index) => (
+            <button
+              key={project.id}
+              className={`tab-nav-item hover-lift interactive ${activeProject === index ? 'active' : ''}`}
+              onClick={() => setActiveProject(index)}
+            >
+              <span className="tab-nav-icon">
+                {project.category === 'Hackathon' && '🏆'}
+                {project.category === 'Web App' && '💻'}
+                {project.category === 'Website' && '🌐'}
+                {project.category === 'Portfolio' && '🎨'}
+                {project.category === 'Coming Soon' && '🚀'}
+              </span>
+              <span className="tab-nav-title">{project.title}</span>
+              {project.preview && project.videoType === 'mp4' && (
+                <span className="video-badge">📹</span>
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* Contenido del proyecto - Video arriba, Info abajo */}
+        <div className={`project-showcase ${isVisible ? 'animate' : ''}`}>
+          {/* Video/Preview Section - Ancho completo arriba */}
+          <div className="project-video-section">
+            <div className="video-container">
+              {projects[activeProject].preview && projects[activeProject].videoType === 'mp4' ? (
+                <video 
+                  key={projects[activeProject].id}
+                  src={projects[activeProject].preview}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="project-video"
+                  preload="metadata"
+                >
+                  Tu navegador no soporta videos HTML5.
+                </video>
+              ) : (
+                <div className="placeholder-video">
+                  <div className="placeholder-icon-large">
+                    {projects[activeProject].category === 'Hackathon' && '🏆'}
+                    {projects[activeProject].category === 'Web App' && '💻'}
+                    {projects[activeProject].category === 'Website' && '🌐'}
+                    {projects[activeProject].category === 'Portfolio' && '🎨'}
+                    {projects[activeProject].category === 'Coming Soon' && '🚀'}
                   </div>
-                  <div className="tab-category">{project.category}</div>
+                  <p className="placeholder-text">
+                    {projects[activeProject].preview ? 'Cargando preview...' : 'Vista previa disponible próximamente'}
+                  </p>
                 </div>
-              </button>
-            ))}
+              )}
+              
+              {/* Status badge */}
+              <div className="video-status-badge">
+                <span className={`status-badge ${projects[activeProject].status.includes('Desarrollo') ? 'development' : 
+                  projects[activeProject].status.includes('2do') ? 'award' : 'completed'}`}>
+                  {projects[activeProject].status}
+                </span>
+              </div>
+
+              {/* Video overlay gradient */}
+              <div className="video-overlay"></div>
+            </div>
           </div>
 
-          <div className="project-content slide-in-right">
-            <div className="project-card hover-glow">
-              <div className="project-image">
-                {projects[activeProject].preview && projects[activeProject].videoType === 'mp4' ? (
-                  <video 
-                    src={projects[activeProject].preview}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="project-video"
-                    preload="metadata"
-                    onError={(e) => console.log('Error loading video:', e)}
-                    onLoadStart={() => console.log('Video loading started')}
-                    onLoadedData={() => console.log('Video loaded successfully')}
-                  >
-                    Tu navegador no soporta videos HTML5.
-                  </video>
-                ) : (
-                  <div className="placeholder-image">
-                    <div className="placeholder-icon">
-                      {projects[activeProject].category === 'Hackathon' && '🏆'}
-                      {projects[activeProject].category === 'Web App' && '💻'}
-                      {projects[activeProject].category === 'Website' && '🌐'}
-                      {projects[activeProject].category === 'Coming Soon' && '🚀'}
-                    </div>
-                    <p>{projects[activeProject].preview ? 'Cargando preview...' : 'Vista previa disponible próximamente'}</p>
-                  </div>
-                )}
-                <div className="project-status">
-                  <span className={`status ${projects[activeProject].status.includes('Desarrollo') ? 'development' : 
-                    projects[activeProject].status.includes('2do') ? 'award' : 'completed'}`}>
-                    {projects[activeProject].status}
-                  </span>
+          {/* Info Section - Abajo del video */}
+          <div className="project-info-section">
+            <div className="info-header">
+              <h3 className="project-title">{projects[activeProject].title}</h3>
+              <span className="project-category">{projects[activeProject].category}</span>
+            </div>
+
+            <p className="project-description">
+              {projects[activeProject].description}
+            </p>
+
+            <div className="info-grid">
+              {/* Tecnologías */}
+              <div className="info-block">
+                <h4>Tecnologías</h4>
+                <div className="tech-tags">
+                  {projects[activeProject].technologies.map((tech, index) => (
+                    <span key={index} className="tech-tag">{tech}</span>
+                  ))}
                 </div>
               </div>
 
-              <div className="project-info">
-                <h3>{projects[activeProject].title}</h3>
-                <p className="project-description">
-                  {projects[activeProject].description}
-                </p>
-
-                <div className="project-technologies">
-                  <h4>Tecnologías utilizadas:</h4>
-                  <div className="tech-tags">
-                    {projects[activeProject].technologies.map((tech, index) => (
-                      <span key={index} className="tech-tag">{tech}</span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="project-features">
-                  <h4>Características principales:</h4>
-                  <ul>
-                    {projects[activeProject].features.map((feature, index) => (
-                      <li key={index}>{feature}</li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="project-actions">
-                  {projects[activeProject].status === 'En Desarrollo' && (
-                    <button className="btn btn-disabled" disabled>
-                      Próximamente disponible
-                    </button>
-                  )}
-                  {projects[activeProject].status !== 'En Desarrollo' && (
-                    <div className="project-note">
-                      <p>💼 Información confidencial del cliente</p>
-                    </div>
-                  )}
-                </div>
+              {/* Features */}
+              <div className="info-block">
+                <h4>Características</h4>
+                <ul className="features-list">
+                  {projects[activeProject].features.map((feature, index) => (
+                    <li key={index}>{feature}</li>
+                  ))}
+                </ul>
               </div>
+            </div>
+
+            {/* Footer info */}
+            <div className="info-footer">
+              {projects[activeProject].status === 'En Desarrollo' ? (
+                <span className="coming-soon-badge">🚀 Próximamente disponible</span>
+              ) : (
+                <span className="confidential-badge">💼 Información confidencial del cliente</span>
+              )}
             </div>
           </div>
         </div>

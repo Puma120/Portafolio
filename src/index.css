@@ -546,8 +546,8 @@ h6 { font-size: 1rem; }
   h3 { font-size: 1.5rem; }
 }
 
-/* Reduced Motion Support */
-@media (prefers-reduced-motion: reduce) {
+/* Reduced Motion Support - SOLO para móvil */
+@media (prefers-reduced-motion: reduce) and (max-width: 767px) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
@@ -561,6 +561,53 @@ h6 { font-size: 1rem; }
   .fade-in, .slide-in-left, .slide-in-right, .scale-in {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* En desktop, asegurar que las animaciones funcionen incluso con reduced-motion */
+@media (min-width: 768px) {
+  .fade-in {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .slide-in-left {
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .slide-in-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .slide-in-right {
+    opacity: 0;
+    transform: translateX(60px);
+    transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .slide-in-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .scale-in {
+    opacity: 0;
+    transform: scale(0.6);
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .scale-in.visible {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 

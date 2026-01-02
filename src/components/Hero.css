@@ -13,6 +13,31 @@
   padding: 2rem 0;
 }
 
+/* ==========================================
+   DESKTOP - Asegurar animaciones activas
+   ========================================== */
+@media (min-width: 768px) {
+  .hero-content {
+    animation: slideInLeft 1s ease-out !important;
+  }
+  
+  .hero-visual {
+    animation: slideInRight 1s ease-out !important;
+  }
+  
+  .floating-card {
+    animation-play-state: running !important;
+  }
+  
+  .profile-frame {
+    animation: rotateFrame 8s linear infinite !important;
+  }
+  
+  .card-icon {
+    animation: floatIcon 3s ease-in-out infinite !important;
+  }
+}
+
 /* Animated Grid Background */
 .hero::before {
   content: '';
@@ -647,10 +672,14 @@
     display: flex !important;
     opacity: 1 !important;
     visibility: visible !important;
+    /* Simplificar animaciones en móvil */
+    animation: none !important;
+    transform: none !important;
   }
 
   .card-icon {
     font-size: 1.3rem;
+    animation: none !important;
   }
 
   .card-text {
@@ -690,6 +719,18 @@
 
   .bg-circle {
     display: none;
+  }
+  
+  /* Simplificar animaciones de texto en móvil */
+  .hero-subtitle,
+  .hero-description,
+  .hero-buttons {
+    animation-duration: 0.3s !important;
+  }
+  
+  /* Reducir efecto glitch en móvil */
+  .hero-title.typewriter-active {
+    animation: none !important;
   }
 }
 

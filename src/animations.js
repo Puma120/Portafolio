@@ -1,18 +1,33 @@
 // Professional Animation System
 class AnimationManager {
   constructor() {
-    this.isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Solo reducir animaciones si es móvil Y tiene preferencia de reduced motion
+    const isMobile = window.innerWidth < 768;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    // En desktop, siempre mostrar animaciones
+    // En móvil, respetar preferencia de reduced motion
+    this.isReduced = isMobile && prefersReducedMotion;
+    this.isMobile = isMobile;
+    
     this.init();
   }
 
   init() {
+    // En desktop, siempre inicializar todas las animaciones
+    // En móvil con reduced motion, saltar
     if (this.isReduced) return;
 
     this.setupScrollAnimations();
-    this.setupParallax();
+    
+    // Parallax y cursor solo en desktop
+    if (!this.isMobile) {
+      this.setupParallax();
+      this.setupCursorEffects();
+    }
+    
     this.setupHoverEffects();
     this.setupStaggerAnimations();
-    this.setupCursorEffects();
   }
 
   // Advanced Scroll Animations

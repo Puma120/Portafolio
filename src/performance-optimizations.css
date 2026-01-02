@@ -1,8 +1,61 @@
-/* Performance Optimizations for Mobile Devices */
+/* Performance Optimizations - Desktop Full Animations, Mobile Optimized */
 
-/* Reducir blur en móvil */
+/* ==========================================
+   DESKTOP/LAPTOP - ANIMACIONES COMPLETAS
+   ========================================== */
+@media (min-width: 768px) {
+  /* Asegurar que todas las animaciones estén activas en desktop */
+  .floating-card,
+  .floating-stat,
+  .profile-frame,
+  .card-icon,
+  .bg-circle {
+    animation-play-state: running !important;
+  }
+  
+  /* Animaciones de gradiente activas */
+  h1, h2, h3, .highlight {
+    animation: gradientShift 3s ease infinite !important;
+    background-size: 200% 200%;
+  }
+  
+  /* Efectos de parallax y hover completos */
+  .hover-lift:hover,
+  .hover-glow:hover {
+    transform: translateY(-10px) scale(1.05);
+    filter: brightness(1.2);
+  }
+  
+  /* Cursor personalizado activo */
+  .custom-cursor {
+    display: block !important;
+  }
+  
+  /* Scan line effect */
+  .hero::after {
+    animation: scan 4s ease-in-out infinite;
+  }
+  
+  /* Grid movement */
+  .hero::before {
+    animation: gridMove 20s linear infinite;
+  }
+  
+  /* Body background animations */
+  body::before {
+    animation: backgroundPulse 15s ease-in-out infinite;
+  }
+  
+  body::after {
+    animation: gridScroll 20s linear infinite;
+  }
+}
+
+/* ==========================================
+   MOBILE - ANIMACIONES REDUCIDAS PARA FLUIDEZ
+   ========================================== */
 @media (max-width: 767px) {
-  /* Reducir backdrop-filter en todos los componentes */
+  /* Reducir backdrop-filter para mejor rendimiento */
   .skill-category,
   .achievement-card,
   .project-card,
@@ -20,24 +73,73 @@
     opacity: 0.3 !important;
   }
 
-  /* Desactivar algunas animaciones en móvil */
+  /* Desactivar animaciones pesadas en móvil */
   .floating-card,
   .floating-stat {
+    animation: fadeInScale 0.8s ease-out forwards !important;
+  }
+  
+  /* Simplificar animación del frame de foto */
+  .profile-frame {
+    animation: none !important;
+    opacity: 0.5;
+  }
+
+  /* Reducir animaciones de gradiente */
+  h1, h2, h3, .highlight {
+    animation: none !important;
+    background-size: 100% 100%;
+  }
+  
+  /* Desactivar efectos de fondo animados */
+  body::before,
+  body::after,
+  .hero::before,
+  .hero::after {
     animation: none !important;
   }
 
-  /* Reducir complejidad de gradientes */
-  h1, h2, h3 {
+  /* Simplificar transiciones hover */
+  .hover-lift:hover,
+  .hover-glow:hover {
+    transform: translateY(-3px);
+    filter: none;
+  }
+  
+  /* Reducir animación de iconos */
+  .card-icon {
     animation: none !important;
   }
+  
+  /* Desactivar círculos de fondo */
+  .bg-circle {
+    display: none !important;
+  }
+  
+  /* Ocultar cursor personalizado */
+  .custom-cursor {
+    display: none !important;
+  }
 
-  /* Optimizar scroll suave */
-  * {
+  /* Optimizar scroll */
+  html {
     scroll-behavior: auto !important;
+  }
+  
+  /* Reducir glow effects */
+  .profile-photo {
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.4) !important;
+  }
+  
+  /* Simplificar hover en botones */
+  .btn:hover {
+    transform: translateY(-2px) !important;
   }
 }
 
-/* Optimizaciones para hardware acceleration */
+/* ==========================================
+   HARDWARE ACCELERATION PARA TODOS
+   ========================================== */
 .hero,
 .skills,
 .projects,
@@ -61,4 +163,20 @@ img {
 .achievement-card {
   content-visibility: auto;
   contain-intrinsic-size: 0 400px;
+}
+
+/* ==========================================
+   OVERRIDE PARA REDUCED MOTION EN DESKTOP
+   Solo aplicar reduced motion en móvil
+   ========================================== */
+@media (min-width: 768px) {
+  /* En desktop, ignorar prefers-reduced-motion para mantener animaciones */
+  .fade-in, .slide-in-left, .slide-in-right, .scale-in {
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+  
+  .stagger-animation {
+    animation-duration: 0.6s !important;
+    animation-play-state: running !important;
+  }
 }
