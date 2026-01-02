@@ -40,7 +40,7 @@ const Projects = () => {
       ],
       status: 'Completado',
       category: 'Web App',
-      preview: '/Grabación Nutri.mp4',
+      preview: '/Grabacion-Nutri.mp4',
       videoType: 'mp4'
     },
     {
@@ -57,7 +57,7 @@ const Projects = () => {
       ],
       status: 'Completado',
       category: 'Website',
-      preview: '/Grabación Moda.mp4',
+      preview: '/Grabacion-Moda.mp4',
       videoType: 'mp4'
     },
     {
@@ -74,7 +74,7 @@ const Projects = () => {
       ],
       status: '2do Lugar Nacional',
       category: 'Hackathon',
-      preview: '/Grabación hackathon.mp4',
+      preview: '/Grabacion-hackathon.mp4',
       videoType: 'mp4'
     },
     {
@@ -91,7 +91,7 @@ const Projects = () => {
       ],
       status: 'Completado',
       category: 'Portfolio',
-      preview: '/Grabacion portafolio daniela.mp4',
+      preview: '/Grabacion-portafolio-daniela.mp4',
       videoType: 'mp4'
     },
     {
