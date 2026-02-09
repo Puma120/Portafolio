@@ -62,9 +62,9 @@ const Projects = () => {
     },
     {
       id: 3,
-      title: 'Proyecto Hackathon Nacional - 2do Lugar 🏆',
+      title: 'Proyecto Hackathon Nacional - 2º Lugar 🏆',
       description: 'Desarrollo de la interfaz frontend para una solución innovadora que obtuvo el segundo lugar en hackathon nacional. Me enfoqué en crear una experiencia de usuario excepcional bajo presión de tiempo.',
-      technologies: ['Python', 'React', 'MongoDB', 'API REST'],
+      technologies: ['HTML', 'Maui', 'Azure', 'API REST'],
       features: [
         'Desarrollo frontend bajo presión',
         'Interfaz innovadora con React',
