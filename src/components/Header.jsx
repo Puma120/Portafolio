@@ -14,7 +14,7 @@ const Header = () => {
     <header className="header">
       <div className="nav-container">
         <div className="logo">
-          <h2>Pablo Portfolio</h2>
+          <h2>Pablo</h2>
         </div>
         
         <nav className={`nav ${isMenuOpen ? 'nav-open' : ''}`}>

@@ -59,7 +59,7 @@ const Hero = () => {
     <section id="home" className="hero parallax-container">
       <div className="hero-container">
         <div className="hero-content stagger-container">
-          <h1 ref={titleRef} className="hero-title stagger-item">
+          <h1 ref={titleRef} className="hero-title">
           </h1>
           <h2 ref={subtitleRef} className="hero-subtitle stagger-item">
             Desarrollador Frontend Especializado
