@@ -1,59 +1,3 @@
-/* CSS Variables */
-:root {
-  /* Futuristic Cyberpunk Colors */
-  --primary-dark: #0a0e27;
-  --primary-blue: #0066ff;
-  --primary-cyan: #00f3ff;
-  --accent-color: #ff006e;
-  --secondary-accent: #8b5cf6;
-  
-  /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #00f3ff 0%, #8b5cf6 50%, #ff006e 100%);
-  --gradient-secondary: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
-  --gradient-accent: linear-gradient(135deg, #ff006e 0%, #ff4500 100%);
-  
-  /* Text Colors */
-  --text-color: #e2e8f0;
-  --text-muted: #94a3b8;
-  --text-light: #ffffff;
-  
-  /* Shadows */
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
-  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.6);
-  
-  /* Transitions */
-  --transition-fast: 0.2s ease;
-  --transition-normal: 0.3s ease;
-  --transition-slow: 0.5s ease;
-  
-  /* Border Radius */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
-  --radius-xl: 24px;
-}
-
-/* Global Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: 'Rajdhani', 'Space Grotesk', 'Segoe UI', sans-serif;
-  line-height: 1.6;
-  color: var(--text-color);
-  overflow-x: hidden;
-  background: var(--primary-dark);
-}
-
 .App {
   min-height: 100vh;
   display: flex;
@@ -64,345 +8,103 @@ body {
 
 main {
   flex: 1;
-  margin-top: 80px;
+  margin-top: 70px;
   position: relative;
   z-index: 1;
 }
 
-/* Utility Classes */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-.section-header {
-  text-align: center;
-  margin-bottom: 4rem;
-  position: relative;
-}
-
-.section-header h2 {
-  font-size: 3rem;
-  font-family: 'Orbitron', sans-serif;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 1.5rem;
-  position: relative;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  animation: gradientShift 3s ease infinite;
-  background-size: 200% 200%;
-}
-
-.section-header h2::after {
-  content: '';
-  position: absolute;
-  bottom: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 4px;
-  background: var(--gradient-primary);
-  border-radius: 4px;
-  box-shadow: 0 0 20px rgba(0, 243, 255, 0.6);
-}
-
-.section-header p {
-  font-size: 1.2rem;
-  color: var(--text-muted);
-  max-width: 700px;
-  margin: 0 auto;
-  line-height: 1.8;
-}
-
-@keyframes gradientShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-/* Futuristic Buttons */
+/* ── Buttons (Edgerunners style) ──────────────────────────── */
 .btn {
-  display: inline-block;
-  padding: 14px 36px;
-  border: 2px solid transparent;
-  border-radius: var(--radius-full);
-  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 12px 32px;
+  font-size: 0.85rem;
   font-weight: 700;
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--mono);
   text-decoration: none;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   cursor: pointer;
   transition: all var(--transition-normal);
   text-align: center;
   position: relative;
   overflow: hidden;
-  z-index: 1;
+  border: none;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
 }
 
 .btn::before {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
-  z-index: -1;
+  top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s ease;
+  z-index: 0;
 }
-
-.btn:hover::before {
-  width: 300px;
-  height: 300px;
-}
+.btn:hover::before { left: 100%; }
+.btn > * { position: relative; z-index: 1; }
 
 .btn-primary {
-  background: var(--gradient-primary);
-  color: white;
-  box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
-  border: 2px solid var(--primary-cyan);
+  background: linear-gradient(135deg, var(--neon-cyan) 0%, rgba(0,229,255,0.5) 100%);
+  color: var(--bg);
+  box-shadow: 0 0 20px rgba(0,229,255,0.35);
 }
-
 .btn-primary:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 0 40px rgba(0, 243, 255, 0.8), 0 10px 30px rgba(0, 0, 0, 0.5);
-  border-color: var(--accent-color);
+  transform: translateY(-3px);
+  box-shadow: var(--glow-cyan);
+  filter: brightness(1.15);
 }
 
 .btn-secondary {
   background: transparent;
-  color: var(--primary-cyan);
-  border: 2px solid var(--primary-cyan);
-  box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+  color: var(--neon-red);
+  border: 1px solid var(--neon-red);
+  box-shadow: 0 0 15px rgba(255,34,81,0.15);
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
 }
-
 .btn-secondary:hover {
-  background: rgba(0, 243, 255, 0.1);
-  color: white;
-  box-shadow: 0 0 30px rgba(0, 243, 255, 0.6);
-  transform: translateY(-3px) scale(1.05);
+  background: rgba(255,34,81,0.1);
+  box-shadow: var(--glow-red);
+  transform: translateY(-3px);
 }
 
-/* Button shine effect */
+/* Scan shine */
 .btn-shine {
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
   transition: left 0.5s;
 }
+.btn:hover .btn-shine { left: 100%; }
 
-.btn:hover .btn-shine {
-  left: 100%;
-}
+/* Interactive cursor */
+.interactive { cursor: pointer; }
 
-/* Animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes bounceIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.3);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.05);
-  }
-  70% {
-    transform: scale(0.9);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Animation Classes */
-.fade-in {
-  opacity: 0;
-  animation: fadeInUp 0.6s ease forwards;
-}
-
-.slide-in-left {
-  opacity: 0;
-  transform: translateX(-30px);
-  animation: fadeInLeft 0.6s ease forwards;
-}
-
-.slide-in-right {
-  opacity: 0;
-  transform: translateX(30px);
-  animation: fadeInRight 0.6s ease forwards;
-}
-
-.scale-in {
-  opacity: 0;
-  transform: scale(0.9);
-  animation: scaleIn 0.6s ease forwards;
-}
-
-.bounce {
-  animation: bounceIn 0.8s ease forwards;
-}
-
-.pulse {
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-/* Hover Effects */
-.hover-lift {
-  transition: all var(--transition-normal);
-}
-
-.hover-lift:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
-}
-
-.hover-glow {
-  transition: all var(--transition-normal);
-}
-
-.hover-glow:hover {
-  box-shadow: 0 0 20px rgba(170, 2, 53, 0.3);
-}
-
-.interactive {
-  cursor: pointer;
-}
-
-/* Stagger Animations */
+/* Stagger items (from App.css used by Hero) */
 .stagger-container .stagger-item {
   opacity: 0;
   transform: translateY(20px);
-  animation: fadeInUp 0.6s ease forwards;
+  animation: staggerItem 0.6s ease forwards;
 }
-
 .stagger-container .stagger-item:nth-child(1) { animation-delay: 0.1s; }
 .stagger-container .stagger-item:nth-child(2) { animation-delay: 0.2s; }
 .stagger-container .stagger-item:nth-child(3) { animation-delay: 0.3s; }
-.stagger-container .stagger-item:nth-child(4) { animation-delay: 0.4s; }
-.stagger-container .stagger-item:nth-child(5) { animation-delay: 0.5s; }
-.stagger-container .stagger-item:nth-child(6) { animation-delay: 0.6s; }
-
-/* Visibility States */
-.visible {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
+@keyframes staggerItem {
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.animate {
-  animation-play-state: running !important;
-}
-
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 12px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--primary-dark);
-  border-left: 1px solid rgba(0, 243, 255, 0.2);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--gradient-primary);
-  border-radius: 6px;
-  border: 2px solid var(--primary-dark);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--gradient-accent);
-  box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
-}
-
-/* Selection */
-::selection {
-  background: rgba(0, 243, 255, 0.3);
-  color: var(--text-light);
-  text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
-}
+/* Visibility */
+.visible { opacity: 1 !important; transform: none !important; }
+.animate { animation-play-state: running !important; }
 
 /* Focus states */
 *:focus {
-  outline: 2px solid var(--primary-cyan);
-  outline-offset: 3px;
-  box-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+  outline: 1px solid var(--neon-cyan);
+  outline-offset: 2px;
 }
 
-/* Responsive typography */
 @media (max-width: 768px) {
-  .section-header h2 {
-    font-size: 2rem;
-  }
-  
-  .container {
-    padding: 0 1rem;
-  }
-
-  main {
-    margin-top: 70px; /* Reduced space for mobile */
-  }
+  main { margin-top: 65px; }
 }

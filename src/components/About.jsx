@@ -5,7 +5,8 @@ const About = () => {
   const aboutRef = useRef(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    // Counter animation observer
+    const counterObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
@@ -22,11 +23,30 @@ const About = () => {
       { threshold: 0.3 }
     );
 
+    // Scroll reveal observer for slide-in elements
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
+
     if (aboutRef.current) {
-      observer.observe(aboutRef.current);
+      counterObserver.observe(aboutRef.current);
+      // Observe all slide-in elements inside the about section
+      aboutRef.current.querySelectorAll('.slide-in-left, .slide-in-right, .fade-in').forEach(el => {
+        revealObserver.observe(el);
+      });
     }
 
-    return () => observer.disconnect();
+    return () => {
+      counterObserver.disconnect();
+      revealObserver.disconnect();
+    };
   }, []);
 
   const animateCounter = (element, target) => {
@@ -51,33 +71,33 @@ const About = () => {
       <div className="container">
         <div className="section-header fade-in">
           <h2 className="section-title">Sobre Mí</h2>
-          <p className="section-subtitle">Conoce más sobre mi experiencia y pasión por el desarrollo</p>
+          <p className="section-subtitle">Desarrollador Full Stack con pasión por el frontend y la experiencia de usuario</p>
         </div>
         
         <div className="about-content">
           <div className="about-text slide-in-left">
-            <h3>Desarrollador Frontend Especializado</h3>
+            <h3>Desarrollador Full Stack</h3>
             <p>
-              Soy un desarrollador especializado en frontend con pasión por crear experiencias de usuario 
-              excepcionales. Mi enfoque principal está en React, JavaScript, HTML/CSS y diseño UX/UI. 
-              Aunque tengo conocimientos en backend, mi verdadera especialización y pasión se encuentra 
-              en el desarrollo frontend y la creación de interfaces modernas y funcionales.
+              Soy un desarrollador Full Stack con fuerte especialización en frontend. 
+              Domino React, JavaScript, HTML/CSS y diseño UX/UI, y construyo backends con Python y APIs REST. 
+              Me apasiona crear productos completos: desde interfaces que enamoran hasta 
+              arquitecturas que escalan.
             </p>
             
             <div className="achievements">
               <div className="achievement hover-lift">
-                <h4>🖥️ Especialización Frontend</h4>
-                <p>Enfoque principal en React, JavaScript y diseño de interfaces de usuario</p>
+                <h4>🖥️ Full Stack Development</h4>
+                <p>React en frontend, Python/FastAPI en backend, Firebase y bases de datos</p>
               </div>
               
               <div className="achievement hover-lift">
-                <h4>💼 Aplicaciones Web Interactivas</h4>
-                <p>He desarrollado aplicaciones frontend completas con experiencias de usuario excepcionales</p>
+                <h4>💼 Productos Web Completos</h4>
+                <p>Desde el diseño UX/UI hasta el despliegue, construyo soluciones end-to-end</p>
               </div>
               
               <div className="achievement hover-lift">
                 <h4>📚 Innovación Continua</h4>
-                <p>Constantemente explorando nuevas tecnologías frontend y tendencias de diseño</p>
+                <p>Siempre explorando nuevas tecnologías y tendencias en desarrollo web e IA</p>
               </div>
             </div>
           </div>

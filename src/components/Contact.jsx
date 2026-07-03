@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import './Contact.css';
 
 const Contact = () => {
+  const contactRef = useRef(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -12,6 +13,11 @@ const Contact = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');
+
+  useEffect(() => {
+    // Cleanup on unmount
+    return () => {};
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -86,7 +92,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="contact">
+    <section id="contact" className="contact" ref={contactRef}>
       <div className="container">
         <div className="section-header fade-in">
           <h2 className="section-title">Contacto</h2>
@@ -94,7 +100,7 @@ const Contact = () => {
         </div>
 
         <div className="contact-content">
-          <div className="contact-info slide-in-left">
+          <div className="contact-info contact-animate-left">
             <h3>Información de Contacto</h3>
             <p>
               Estoy disponible para proyectos freelance, colaboraciones y oportunidades laborales. 
@@ -150,7 +156,7 @@ const Contact = () => {
             </div>
           </div>
 
-          <div className="contact-form slide-in-right">
+          <div className="contact-form contact-animate-right">
             <h3>Envíame un Mensaje</h3>
             
             {submitStatus === 'success' && (

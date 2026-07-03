@@ -10,13 +10,20 @@ const Footer = () => {
 
   return (
     <footer className="footer">
+      {/* Hatch divider */}
+      <div className="footer-hatch">
+        <span className="hatch-x">+</span>
+        <div className="hatch-line" />
+        <span className="hatch-x">+</span>
+      </div>
+
       <div className="container">
         <div className="footer-content">
           <div className="footer-section">
-            <h3>Pablo Portfolio</h3>
+            <h3>pablo.dev</h3>
             <p>
-              Desarrollador Full Stack apasionado por crear soluciones innovadoras 
-              y eficientes que resuelvan problemas reales.
+              Desarrollador frontend apasionado por crear interfaces modernas
+              y experiencias de usuario excepcionales.
             </p>
             <div className="footer-social">
               <a href="https://github.com/Puma120" target="_blank" rel="noopener noreferrer" className="social-link">
@@ -44,7 +51,7 @@ const Footer = () => {
               <li><a href="#">Desarrollo Web</a></li>
               <li><a href="#">Aplicaciones React</a></li>
               <li><a href="#">Backend con Python</a></li>
-              <li><a href="#">Bases de Datos</a></li>
+              <li><a href="#">UI/UX Design</a></li>
             </ul>
           </div>
 
@@ -60,13 +67,13 @@ const Footer = () => {
 
         <div className="footer-bottom">
           <div className="footer-bottom-content">
-            <p>&copy; {currentYear} Pablo Portfolio. Todos los derechos reservados.</p>
+            <p>© {currentYear} pablo.dev — All systems operational.</p>
             <div className="footer-bottom-links">
-              <a href="#">Política de Privacidad</a>
-              <a href="#">Términos de Uso</a>
+              <a href="#">Privacidad</a>
+              <a href="#">Términos</a>
             </div>
           </div>
-          
+
           <button className="scroll-to-top" onClick={scrollToTop}>
             <span>↑</span>
           </button>
@@ -74,6 +81,7 @@ const Footer = () => {
       </div>
     </footer>
   );
+
 };
 
 export default Footer;

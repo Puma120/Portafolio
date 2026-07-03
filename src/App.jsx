@@ -14,6 +14,21 @@ function App() {
   return (
     <div className="App">
       <ParticleBackground />
+
+      {/* HUD corners decorativos */}
+      <div className="hud" aria-hidden="true">
+        <div className="hud-corner hud-tl" />
+        <div className="hud-corner hud-tr" />
+        <div className="hud-corner hud-bl" />
+        <div className="hud-corner hud-br" />
+      </div>
+
+      {/* Sys status dot */}
+      <div className="sys-status" aria-hidden="true">
+        <div className="sys-dot" />
+        <span>SYS_ONLINE</span>
+      </div>
+
       <Header />
       <main>
         <Hero />

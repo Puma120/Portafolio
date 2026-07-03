@@ -44,6 +44,23 @@ const Projects = () => {
       videoType: 'mp4'
     },
     {
+      id: 6,
+      title: 'Nova Agent - Mejor Proyecto Expo Ibero 🏆',
+      description: 'Nova es un asistente personal con IA (un "gemelo digital") que maneja memoria a largo plazo y ejecuta acciones mediante herramientas. Utiliza LangGraph para transmitir su razonamiento en vivo (Agent Steps), hace RAG sobre documentos y se integra con Google Calendar.',
+      technologies: ['React', 'FastAPI', 'Python', 'LangGraph', 'Pinecone', 'Gemini'],
+      features: [
+        'Agente conversacional avanzado',
+        'Recuperación de documentos (RAG)',
+        'Streaming de razonamiento en vivo',
+        'Integración con Google Calendar',
+        'Memoria persistente de usuario'
+      ],
+      status: 'Ganador Mejor Proyecto',
+      category: 'AI Assistant',
+      preview: '/Grabacion-NovaAgent.webp',
+      videoType: 'webp'
+    },
+    {
       id: 2,
       title: 'Sitio Web Casa de Modas',
       description: 'Desarrollo frontend completo de una página web elegante y moderna para casa de modas. Enfoque total en la experiencia visual, animaciones suaves y diseño responsive que refleja la elegancia de la marca.',
@@ -96,19 +113,19 @@ const Projects = () => {
     },
     {
       id: 5,
-      title: 'Proyecto en Desarrollo #2',
-      description: 'Otra iniciativa prometedora que está en las etapas iniciales de desarrollo. Combinará múltiples tecnologías para crear una solución integral.',
-      technologies: ['JavaScript', 'Firebase', 'MongoDB'],
+      title: 'Recreación de Salón 3D en Unity',
+      description: 'Desarrollo de un entorno virtual 3D interactivo que recrea un salón. Se implementaron físicas, iluminación, materiales y recorridos virtuales para brindar una experiencia inmersiva.',
+      technologies: ['Unity', 'C#', '3D Modeling'],
       features: [
-        'Concepto innovador',
-        'Tecnologías modernas',
-        'Escalabilidad',
-        'User Experience optimizada'
+        'Entorno 3D inmersivo',
+        'Iluminación y materiales realistas',
+        'Navegación interactiva',
+        'Experiencia de usuario optimizada'
       ],
-      status: 'En Desarrollo',
-      category: 'Coming Soon',
-      preview: null,
-      videoType: null
+      status: 'Completado',
+      category: 'Simulación 3D',
+      preview: '/Grabacion-UnitySalon.mp4',
+      videoType: 'mp4'
     }
   ];
 
@@ -133,10 +150,12 @@ const Projects = () => {
                 {project.category === 'Web App' && '💻'}
                 {project.category === 'Website' && '🌐'}
                 {project.category === 'Portfolio' && '🎨'}
+                {project.category === 'Simulación 3D' && '🎮'}
+                {project.category === 'AI Assistant' && '🤖'}
                 {project.category === 'Coming Soon' && '🚀'}
               </span>
               <span className="tab-nav-title">{project.title}</span>
-              {project.preview && project.videoType === 'mp4' && (
+              {project.preview && (project.videoType === 'mp4' || project.videoType === 'webp') && (
                 <span className="video-badge">📹</span>
               )}
             </button>
@@ -161,6 +180,13 @@ const Projects = () => {
                 >
                   Tu navegador no soporta videos HTML5.
                 </video>
+              ) : projects[activeProject].preview && projects[activeProject].videoType === 'webp' ? (
+                <img
+                  key={projects[activeProject].id}
+                  src={projects[activeProject].preview}
+                  alt={projects[activeProject].title}
+                  className="project-video"
+                />
               ) : (
                 <div className="placeholder-video">
                   <div className="placeholder-icon-large">
@@ -168,6 +194,8 @@ const Projects = () => {
                     {projects[activeProject].category === 'Web App' && '💻'}
                     {projects[activeProject].category === 'Website' && '🌐'}
                     {projects[activeProject].category === 'Portfolio' && '🎨'}
+                    {projects[activeProject].category === 'Simulación 3D' && '🎮'}
+                    {projects[activeProject].category === 'AI Assistant' && '🤖'}
                     {projects[activeProject].category === 'Coming Soon' && '🚀'}
                   </div>
                   <p className="placeholder-text">
@@ -179,7 +207,7 @@ const Projects = () => {
               {/* Status badge */}
               <div className="video-status-badge">
                 <span className={`status-badge ${projects[activeProject].status.includes('Desarrollo') ? 'development' : 
-                  projects[activeProject].status.includes('2do') ? 'award' : 'completed'}`}>
+                  (projects[activeProject].status.includes('2do') || projects[activeProject].status.includes('Ganador')) ? 'award' : 'completed'}`}>
                   {projects[activeProject].status}
                 </span>
               </div>
@@ -222,14 +250,7 @@ const Projects = () => {
               </div>
             </div>
 
-            {/* Footer info */}
-            <div className="info-footer">
-              {projects[activeProject].status === 'En Desarrollo' ? (
-                <span className="coming-soon-badge">🚀 Próximamente disponible</span>
-              ) : (
-                <span className="confidential-badge">💼 Información confidencial del cliente</span>
-              )}
-            </div>
+
           </div>
         </div>
       </div>

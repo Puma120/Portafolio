@@ -340,10 +340,19 @@ style.textContent = cursorStyles;
 document.head.appendChild(style);
 
 // Initialize animations when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-  new AnimationManager();
+function initAnimations() {
+  const manager = new AnimationManager();
   AnimationManager.setupPageTransitions();
-});
+  return manager;
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initAnimations);
+} else {
+  // DOM already ready (React has already rendered)
+  // Small delay to ensure all React components have mounted
+  setTimeout(initAnimations, 100);
+}
 
 // Export for use in components
 export { AnimationManager };

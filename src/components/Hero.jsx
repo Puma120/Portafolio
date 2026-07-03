@@ -59,17 +59,21 @@ const Hero = () => {
     <section id="home" className="hero parallax-container">
       <div className="hero-container">
         <div className="hero-content stagger-container">
+          <div className="hero-badge">
+            <div className="hero-badge-dot" />
+            <span>FULLSTACK_DEV // NIGHT_CITY</span>
+          </div>
           <h1 ref={titleRef} className="hero-title">
           </h1>
           <h2 ref={subtitleRef} className="hero-subtitle stagger-item">
-            Desarrollador Frontend Especializado
+            Desarrollador Full Stack
           </h2>
           <p className="hero-description stagger-item">
-            Especializado en desarrollo frontend con React, JavaScript, HTML/CSS y diseño UX/UI. 
-            Con conocimientos en backend para proyectos full stack. Apasionado por crear experiencias de usuario excepcionales y interfaces modernas.
+            Desarrollador Full Stack con especialización en frontend. React, JavaScript, Python y diseño UX/UI. 
+            Apasionado por construir productos completos: desde interfaces modernas hasta APIs robustas.
           </p>
           <div className="hero-buttons stagger-item">
-            <button primary
+            <button
               className="btn btn-primary hover-lift interactive"
               onClick={() => document.getElementById('projects').scrollIntoView({ behavior: 'smooth' })}
             >
@@ -88,12 +92,17 @@ const Hero = () => {
         <div className="hero-visual parallax-element" data-speed="0.3">
           {/* Profile Photo Container */}
           <div className="profile-photo-container hover-glow interactive">
-            <img 
-              src="/Foto.jpeg" 
-              alt="Pablo - Desarrollador Frontend Especializado"
+            <div className="profile-online">
+              <div className="profile-online-dot" />
+              ONLINE
+            </div>
+            <img
+              src="/Foto.jpeg"
+              alt="Pablo - Desarrollador Full Stack"
               className="profile-photo"
             />
             <div className="profile-frame"></div>
+            <div className="profile-frame-inner"></div>
           </div>
 
           <div className="floating-elements">
