@@ -61,7 +61,7 @@ const Hero = () => {
         <div className="hero-content stagger-container">
           <div className="hero-badge">
             <div className="hero-badge-dot" />
-            <span>FULLSTACK_DEV // NIGHT_CITY</span>
+            <span>FULLSTACK_DEV // BILINGUAL ENGLISH-SPANISH</span>
           </div>
           <h1 ref={titleRef} className="hero-title">
           </h1>
