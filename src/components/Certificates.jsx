@@ -5,8 +5,21 @@ const Certificates = () => {
   const [selectedCertificate, setSelectedCertificate] = useState(null);
 
   // Cleanup en caso de que el componente se desmonte con modal abierto
+  // Y listener para abrir certificados desde otros componentes
   useEffect(() => {
+    const handleOpenCert = (e) => {
+      const certId = e.detail;
+      const cert = certificates.find(c => c.id === certId);
+      if (cert) {
+        setSelectedCertificate(cert);
+        document.body.classList.add('modal-open');
+      }
+    };
+    
+    window.addEventListener('openCertificate', handleOpenCert);
+    
     return () => {
+      window.removeEventListener('openCertificate', handleOpenCert);
       document.body.classList.remove('modal-open');
     };
   }, []);
@@ -56,6 +69,24 @@ const Certificates = () => {
       issuer: 'Universidad Iberoamericana',
       date: '2025',
       category: '3er Lugar'
+    },
+    {
+      id: 6,
+      title: 'Mejor Proyecto Nova - ExpoIbero 2026',
+      description: 'Reconocimiento por obtener el galardón de mejor proyecto con "Nova Agent" en la ExpoIbero 2026',
+      image: '/Certifiacdo_ExpoIbero_2026_NOVA.png',
+      issuer: 'ExpoIbero',
+      date: '2026',
+      category: 'Mejor Proyecto'
+    },
+    {
+      id: 7,
+      title: 'Asistente Virtual - ExpoIbero 2025',
+      description: 'Reconocimiento por el proyecto de Asistente Virtual presentado en la ExpoIbero 2025',
+      image: '/ExpoIbero_2025_asistente virtual.jpg',
+      issuer: 'ExpoIbero',
+      date: '2025',
+      category: 'Proyecto Destacado'
     }
   ];
 

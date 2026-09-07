@@ -57,8 +57,9 @@ const Projects = () => {
       ],
       status: 'Ganador Mejor Proyecto',
       category: 'AI Assistant',
-      preview: '/Grabacion-NovaAgent.webp',
-      videoType: 'webp'
+      preview: '/Grabación-Novamp4.mp4',
+      videoType: 'mp4',
+      certificateId: 6
     },
     {
       id: 2,
@@ -227,6 +228,29 @@ const Projects = () => {
             <p className="project-description">
               {projects[activeProject].description}
             </p>
+
+            {projects[activeProject].certificateId && (
+              <div className="project-actions" style={{ marginTop: '1.5rem', marginBottom: '0.5rem' }}>
+                <button 
+                  className="btn btn-primary hover-lift interactive"
+                  style={{ padding: '0.6rem 1.2rem', fontSize: '0.9rem' }}
+                  onClick={() => {
+                    const certSection = document.getElementById('certificates');
+                    if (certSection) {
+                      certSection.scrollIntoView({ behavior: 'smooth' });
+                      setTimeout(() => {
+                        window.dispatchEvent(new CustomEvent('openCertificate', { detail: projects[activeProject].certificateId }));
+                      }, 600);
+                    }
+                  }}
+                >
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    Ver Certificado 🏆
+                  </span>
+                  <div className="btn-shine"></div>
+                </button>
+              </div>
+            )}
 
             <div className="info-grid">
               {/* Tecnologías */}
