@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import CyberIcon from './CyberIcons';
+import { TextScramble } from '../animations';
 import './Projects.css';
 
 const Projects = () => {
   const [activeProject, setActiveProject] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const titleHeadingRef = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -14,7 +17,7 @@ const Projects = () => {
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     );
 
     const projectsSection = document.getElementById('projects');
@@ -25,38 +28,48 @@ const Projects = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Text scramble on active project change
+  useEffect(() => {
+    if (titleHeadingRef.current && projects[activeProject]) {
+      const scrambler = new TextScramble(titleHeadingRef.current);
+      scrambler.setText(projects[activeProject].title);
+    }
+  }, [activeProject]);
+
   const projects = [
     {
       id: 1,
       title: 'Sistema de Consultoría Nutricional',
-      description: 'Interfaz frontend completa para consultorios de nutrición con cuestionarios interactivos y dashboard intuitivo. Desarrollé toda la experiencia de usuario y la interfaz, implementando un diseño responsive y funcional.',
+      description: 'Interfaz frontend completa para consultorios de nutrición con cuestionarios interactivos y dashboard intuitivo. Diseñado con arquitectura responsive, optimización de renderizado y componentes modulares.',
       technologies: ['React', 'Python', 'Firebase', 'JavaScript'],
       features: [
-        'Interfaz de usuario intuitiva',
-        'Cuestionarios interactivos con React',
-        'Dashboard responsive',
-        'Diseño UX/UI optimizado',
-        'Componentes reutilizables'
+        'Interfaz de usuario intuitiva y de alta fidelidad',
+        'Cuestionarios interactivos con estado reactivo',
+        'Dashboard clínico con visualización de métricas',
+        'Diseño UX/UI optimizado con mobile-first',
+        'Componentes modulares altamente reutilizables'
       ],
       status: 'Completado',
       category: 'Web App',
+      icon: 'frontend',
       preview: '/Grabacion-Nutri.mp4',
       videoType: 'mp4'
     },
     {
       id: 6,
-      title: 'Nova Agent - Mejor Proyecto Expo Ibero 🏆',
-      description: 'Nova es un asistente personal con IA (un "gemelo digital") que maneja memoria a largo plazo y ejecuta acciones mediante herramientas. Utiliza LangGraph para transmitir su razonamiento en vivo (Agent Steps), hace RAG sobre documentos y se integra con Google Calendar.',
+      title: 'Nova Agent // Mejor Proyecto Expo Ibero',
+      description: 'Asistente de Inteligencia Artificial ("gemelo digital") con memoria persistente a largo plazo y ejecución autónoma mediante herramientas. Construido con LangGraph para streaming de razonamiento en vivo (Agent Steps), RAG sobre documentos y sincronización con Google Calendar.',
       technologies: ['React', 'FastAPI', 'Python', 'LangGraph', 'Pinecone', 'Gemini'],
       features: [
-        'Agente conversacional avanzado',
-        'Recuperación de documentos (RAG)',
-        'Streaming de razonamiento en vivo',
-        'Integración con Google Calendar',
-        'Memoria persistente de usuario'
+        'Agente conversacional y orquestación con LangGraph',
+        'Indexación semántica y recuperación RAG con Pinecone',
+        'Streaming de razonamiento y pasos del agente en vivo',
+        'Integración con herramientas externas (Google Calendar)',
+        'Memoria persistente contextual por usuario'
       ],
       status: 'Ganador Mejor Proyecto',
       category: 'AI Assistant',
+      icon: 'sparkles',
       preview: '/Grabación-Novamp4.mp4',
       videoType: 'mp4',
       certificateId: 6
@@ -64,112 +77,138 @@ const Projects = () => {
     {
       id: 2,
       title: 'Sitio Web Casa de Modas',
-      description: 'Desarrollo frontend completo de una página web elegante y moderna para casa de modas. Enfoque total en la experiencia visual, animaciones suaves y diseño responsive que refleja la elegancia de la marca.',
+      description: 'Desarrollo frontend completo para firma de alta costura. Enfoque integral en la experiencia visual, micro-interacciones suaves, tipografía cuidada y maquetación responsive adaptable a todos los dispositivos.',
       technologies: ['React', 'Vite', 'CSS3', 'JavaScript'],
       features: [
-        'Diseño visual impactante',
-        'Galería interactiva con React',
-        'Animaciones CSS avanzadas',
-        'Diseño mobile-first',
-        'Experiencia de usuario premium'
+        'Diseño visual editorial de alto impacto',
+        'Galería interactiva con filtros fluidos',
+        'Animaciones y transiciones de alto rendimiento',
+        'Arquitectura mobile-first optimizada',
+        'Experiencia de navegación inmersiva'
       ],
       status: 'Completado',
       category: 'Website',
+      icon: 'code',
       preview: '/Grabacion-Moda.mp4',
       videoType: 'mp4'
     },
     {
       id: 3,
-      title: 'Proyecto Hackathon Nacional - 2º Lugar 🏆',
-      description: 'Desarrollo de la interfaz frontend para una solución innovadora que obtuvo el segundo lugar en hackathon nacional. Me enfoqué en crear una experiencia de usuario excepcional bajo presión de tiempo.',
+      title: 'Proyecto Hackathon Nacional // 2º Lugar',
+      description: 'Desarrollo de la interfaz de usuario para una solución tecnológica desarrollada bajo rigurosa presión de tiempo, obteniendo el segundo lugar nacional. Integración ágil de APIs y prototipado reactivo.',
       technologies: ['HTML', 'Maui', 'Azure', 'API REST'],
       features: [
-        'Desarrollo frontend bajo presión',
-        'Interfaz innovadora con React',
-        'UX/UI design efectivo',
-        'Prototipado rápido',
-        'Solución visualmente impactante'
+        'Desarrollo y prototipado ágil bajo presión competitiva',
+        'Arquitectura de componentes reactivos en frontend',
+        'Diseño UX/UI orientado a resolución rápida de flujos',
+        'Integración continua con servicios en la nube (Azure)',
+        'Presentación y validación ante panel evaluador'
       ],
       status: '2do Lugar Nacional',
       category: 'Hackathon',
+      icon: 'trophy',
       preview: '/Grabacion-hackathon.mp4',
       videoType: 'mp4'
     },
     {
       id: 4,
-      title: 'Portafolio Web - Diseño Textil',
-      description: 'Desarrollo de un portafolio web personalizado para una estudiante de diseño textil. Creé una experiencia visual única siguiendo su estilo artístico, con una paleta de colores y ambiente específicos que reflejan su identidad como diseñadora.',
+      title: 'Portafolio Web // Diseño Textil',
+      description: 'Desarrollo de un portafolio web interactivo para exhibición de piezas de diseño textil. Experiencia visual centrada en el detalle de las obras, paleta de colores personalizada y navegación envolvente.',
       technologies: ['React', 'Vite', 'CSS3', 'JavaScript'],
       features: [
-        'Diseño personalizado a su estilo',
-        'Galería de trabajos textiles',
-        'Paleta de colores personalizada',
-        'Diseño responsive',
-        'Experiencia visual artística'
+        'Identidad visual adaptada a la estética de la autora',
+        'Galería de colecciones y piezas de alta resolución',
+        'Paleta cromática balanceada y tipografía cuidada',
+        'Despliegue y carga progresiva optimizada',
+        'Navegación interactiva fluida'
       ],
       status: 'Completado',
       category: 'Portfolio',
+      icon: 'target',
       preview: '/Grabacion-portafolio-daniela.mp4',
       videoType: 'mp4'
     },
     {
       id: 5,
-      title: 'Recreación de Salón 3D en Unity',
-      description: 'Desarrollo de un entorno virtual 3D interactivo que recrea un salón. Se implementaron físicas, iluminación, materiales y recorridos virtuales para brindar una experiencia inmersiva.',
+      title: 'Simulación 3D de Espacio en Unity',
+      description: 'Desarrollo de entorno virtual tridimensional interactivo. Implementación de físicas, cálculo de iluminación dinámica en tiempo real, mapeo de materiales PBR y recorridos virtuales inmersivos.',
       technologies: ['Unity', 'C#', '3D Modeling'],
       features: [
-        'Entorno 3D inmersivo',
-        'Iluminación y materiales realistas',
-        'Navegación interactiva',
-        'Experiencia de usuario optimizada'
+        'Entorno 3D con shaders e iluminación PBR dinámica',
+        'Físicas de colisión e interacción en tiempo real',
+        'Control de cámara y navegación espacial fluida',
+        'Optimización de draw calls y tasa de cuadros estable'
       ],
       status: 'Completado',
       category: 'Simulación 3D',
+      icon: 'cpu',
       preview: '/Grabacion-UnitySalon.mp4',
       videoType: 'mp4'
     }
   ];
 
+  const getCategoryIcon = (category) => {
+    switch (category) {
+      case 'AI Assistant': return 'sparkles';
+      case 'Hackathon': return 'trophy';
+      case 'Web App': return 'frontend';
+      case 'Website': return 'code';
+      case 'Portfolio': return 'target';
+      case 'Simulación 3D': return 'cpu';
+      default: return 'code';
+    }
+  };
+
   return (
     <section id="projects" className="projects">
       <div className="container">
         <div className="section-header fade-in">
-          <h2 className="section-title">Proyectos Destacados</h2>
-          <p className="section-subtitle">Interfaces y experiencias de usuario que he desarrollado con pasión y dedicación</p>
+          <h2 className="section-title" data-scramble>Proyectos Destacados</h2>
+          <p className="section-subtitle">Arquitectura de software, sistemas de inteligencia artificial y aplicaciones web interactivas</p>
         </div>
 
-        {/* Tabs de navegación */}
+        {/* Cyberpunk Navigation Tabs */}
         <div className={`project-tabs-nav ${isVisible ? 'animate' : ''}`}>
           {projects.map((project, index) => (
             <button
               key={project.id}
               className={`tab-nav-item hover-lift interactive ${activeProject === index ? 'active' : ''}`}
               onClick={() => setActiveProject(index)}
+              aria-label={`Seleccionar proyecto ${project.title}`}
             >
               <span className="tab-nav-icon">
-                {project.category === 'Hackathon' && '🏆'}
-                {project.category === 'Web App' && '💻'}
-                {project.category === 'Website' && '🌐'}
-                {project.category === 'Portfolio' && '🎨'}
-                {project.category === 'Simulación 3D' && '🎮'}
-                {project.category === 'AI Assistant' && '🤖'}
-                {project.category === 'Coming Soon' && '🚀'}
+                <CyberIcon name={getCategoryIcon(project.category)} size={15} color={activeProject === index ? 'var(--neon-cyan)' : 'var(--text-secondary)'} />
               </span>
               <span className="tab-nav-title">{project.title}</span>
-              {project.preview && (project.videoType === 'mp4' || project.videoType === 'webp') && (
-                <span className="video-badge">📹</span>
+              {project.preview && (
+                <span className="video-badge">
+                  <CyberIcon name="play" size={10} color="var(--neon-cyan)" />
+                </span>
               )}
             </button>
           ))}
         </div>
 
-        {/* Contenido del proyecto - Video arriba, Info abajo */}
+        {/* Active Project Showcase */}
         <div className={`project-showcase ${isVisible ? 'animate' : ''}`}>
-          {/* Video/Preview Section - Ancho completo arriba */}
+          {/* Video Section with Cyberpunk HUD */}
           <div className="project-video-section">
             <div className="video-container">
+              {/* Telemetry Overlays */}
+              <div className="video-hud-bar top-bar">
+                <div className="hud-rec-indicator">
+                  <span className="rec-dot" />
+                  <span>REC // 1080P_60FPS</span>
+                </div>
+                <div className="hud-telemetry">
+                  <span>STREAM_ID: 0{activeProject + 1}</span>
+                  <span className="telemetry-sep">|</span>
+                  <span>FPS: 60.0</span>
+                </div>
+              </div>
+
               {projects[activeProject].preview && projects[activeProject].videoType === 'mp4' ? (
-                <video 
+                <video
                   key={projects[activeProject].id}
                   src={projects[activeProject].preview}
                   autoPlay
@@ -187,41 +226,35 @@ const Projects = () => {
                   src={projects[activeProject].preview}
                   alt={projects[activeProject].title}
                   className="project-video"
+                  width="800"
+                  height="450"
                 />
               ) : (
                 <div className="placeholder-video">
                   <div className="placeholder-icon-large">
-                    {projects[activeProject].category === 'Hackathon' && '🏆'}
-                    {projects[activeProject].category === 'Web App' && '💻'}
-                    {projects[activeProject].category === 'Website' && '🌐'}
-                    {projects[activeProject].category === 'Portfolio' && '🎨'}
-                    {projects[activeProject].category === 'Simulación 3D' && '🎮'}
-                    {projects[activeProject].category === 'AI Assistant' && '🤖'}
-                    {projects[activeProject].category === 'Coming Soon' && '🚀'}
+                    <CyberIcon name={getCategoryIcon(projects[activeProject].category)} size={48} color="var(--neon-cyan)" />
                   </div>
-                  <p className="placeholder-text">
-                    {projects[activeProject].preview ? 'Cargando preview...' : 'Vista previa disponible próximamente'}
-                  </p>
+                  <p className="placeholder-text">Vista previa disponible</p>
                 </div>
               )}
-              
+
               {/* Status badge */}
               <div className="video-status-badge">
-                <span className={`status-badge ${projects[activeProject].status.includes('Desarrollo') ? 'development' : 
-                  (projects[activeProject].status.includes('2do') || projects[activeProject].status.includes('Ganador')) ? 'award' : 'completed'}`}>
-                  {projects[activeProject].status}
+                <span className={`status-badge ${(projects[activeProject].status.includes('2do') || projects[activeProject].status.includes('Ganador')) ? 'award' : 'completed'
+                  }`}>
+                  <CyberIcon name={projects[activeProject].status.includes('Ganador') || projects[activeProject].status.includes('2do') ? 'award' : 'check'} size={12} />
+                  <span>{projects[activeProject].status}</span>
                 </span>
               </div>
 
-              {/* Video overlay gradient */}
-              <div className="video-overlay"></div>
+              <div className="video-overlay" />
             </div>
           </div>
 
-          {/* Info Section - Abajo del video */}
-          <div className="project-info-section">
+          {/* Info Section */}
+          <div className="project-info-section" data-tilt>
             <div className="info-header">
-              <h3 className="project-title">{projects[activeProject].title}</h3>
+              <h3 ref={titleHeadingRef} className="project-title">{projects[activeProject].title}</h3>
               <span className="project-category">{projects[activeProject].category}</span>
             </div>
 
@@ -230,51 +263,51 @@ const Projects = () => {
             </p>
 
             {projects[activeProject].certificateId && (
-              <div className="project-actions" style={{ marginTop: '1.5rem', marginBottom: '0.5rem' }}>
-                <button 
+              <div className="project-actions">
+                <button
                   className="btn btn-primary hover-lift interactive"
-                  style={{ padding: '0.6rem 1.2rem', fontSize: '0.9rem' }}
                   onClick={() => {
                     const certSection = document.getElementById('certificates');
                     if (certSection) {
                       certSection.scrollIntoView({ behavior: 'smooth' });
                       setTimeout(() => {
                         window.dispatchEvent(new CustomEvent('openCertificate', { detail: projects[activeProject].certificateId }));
-                      }, 600);
+                      }, 500);
                     }
                   }}
                 >
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    Ver Certificado 🏆
-                  </span>
-                  <div className="btn-shine"></div>
+                  <CyberIcon name="award" size={16} />
+                  <span>Ver Reconocimiento Oficial</span>
                 </button>
               </div>
             )}
 
             <div className="info-grid">
-              {/* Tecnologías */}
+              {/* Stack */}
               <div className="info-block">
-                <h4>Tecnologías</h4>
+                <h4>// STACK_TECNOLOGICO</h4>
                 <div className="tech-tags">
                   {projects[activeProject].technologies.map((tech, index) => (
-                    <span key={index} className="tech-tag">{tech}</span>
+                    <span key={index} className="tech-tag hover-glow">{tech}</span>
                   ))}
                 </div>
               </div>
 
               {/* Features */}
               <div className="info-block">
-                <h4>Características</h4>
+                <h4>// ESPECIFICACIONES_CLAVE</h4>
                 <ul className="features-list">
                   {projects[activeProject].features.map((feature, index) => (
-                    <li key={index}>{feature}</li>
+                    <li key={index}>
+                      <span className="feature-icon">
+                        <CyberIcon name="check" size={13} color="var(--neon-cyan)" />
+                      </span>
+                      <span>{feature}</span>
+                    </li>
                   ))}
                 </ul>
               </div>
             </div>
-
-
           </div>
         </div>
       </div>

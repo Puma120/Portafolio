@@ -2,17 +2,22 @@ import React from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
+import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Certificates from './components/Certificates';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ParticleBackground from './components/ParticleBackground';
+import DataStreams from './components/DataStreams';
 import './App.css';
 import './animations.js';
 
 function App() {
   return (
     <div className="App">
+      {/* Data stream background - deepest layer */}
+      <DataStreams />
+
       <ParticleBackground />
 
       {/* HUD corners decorativos */}
@@ -33,6 +38,7 @@ function App() {
       <main>
         <Hero />
         <About />
+        <Skills />
         <Projects />
         <Certificates />
         <Contact />
@@ -43,3 +49,4 @@ function App() {
 }
 
 export default App;
+

@@ -1,11 +1,29 @@
 import React from 'react';
+import CyberIcon from './CyberIcons';
+import { AnimationManager } from '../animations';
 import './Footer.css';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => {
+        AnimationManager.triggerSectionGlitch(el);
+      }, 150);
+    }
+  };
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    const heroEl = document.getElementById('home');
+    if (heroEl) {
+      setTimeout(() => {
+        AnimationManager.triggerSectionGlitch(heroEl);
+      }, 150);
+    }
   };
 
   return (
@@ -22,66 +40,72 @@ const Footer = () => {
           <div className="footer-section">
             <h3>pablo.dev</h3>
             <p>
-              Desarrollador frontend apasionado por crear interfaces modernas
-              y experiencias de usuario excepcionales.
+              Desarrollador Full Stack con especialización en frontend, diseño UX/UI de alta fidelidad y arquitecturas reactivas.
             </p>
             <div className="footer-social">
-              <a href="https://github.com/Puma120" target="_blank" rel="noopener noreferrer" className="social-link">
-                <span>💻</span> GitHub
+              <a href="https://github.com/Puma120" target="_blank" rel="noopener noreferrer" className="social-link interactive">
+                <CyberIcon name="github" size={14} />
+                <span>GitHub</span>
               </a>
-              <a href="https://instagram.com/puma_w_" target="_blank" rel="noopener noreferrer" className="social-link">
-                <span>📷</span> Instagram
+              <a href="https://instagram.com/puma_w_" target="_blank" rel="noopener noreferrer" className="social-link interactive">
+                <CyberIcon name="instagram" size={14} />
+                <span>Instagram</span>
               </a>
             </div>
           </div>
 
           <div className="footer-section">
-            <h4>Navegación</h4>
+            <h4>// NAVEGACION</h4>
             <ul className="footer-links">
-              <li><a onClick={() => document.getElementById('home').scrollIntoView({ behavior: 'smooth' })}>Inicio</a></li>
-              <li><a onClick={() => document.getElementById('about').scrollIntoView({ behavior: 'smooth' })}>Sobre Mí</a></li>
-              <li><a onClick={() => document.getElementById('skills').scrollIntoView({ behavior: 'smooth' })}>Habilidades</a></li>
-              <li><a onClick={() => document.getElementById('projects').scrollIntoView({ behavior: 'smooth' })}>Proyectos</a></li>
+              <li><a onClick={() => scrollToSection('home')}>Inicio</a></li>
+              <li><a onClick={() => scrollToSection('about')}>Sobre Mí</a></li>
+              <li><a onClick={() => scrollToSection('skills')}>Habilidades</a></li>
+              <li><a onClick={() => scrollToSection('projects')}>Proyectos</a></li>
+              <li><a onClick={() => scrollToSection('certificates')}>Certificaciones</a></li>
             </ul>
           </div>
 
           <div className="footer-section">
-            <h4>Servicios</h4>
+            <h4>// ESPECIALIDADES</h4>
             <ul className="footer-links">
-              <li><a href="#">Desarrollo Web</a></li>
-              <li><a href="#">Aplicaciones React</a></li>
-              <li><a href="#">Backend con Python</a></li>
-              <li><a href="#">UI/UX Design</a></li>
+              <li><span>Arquitectura Frontend React</span></li>
+              <li><span>Diseño UX/UI & Motion</span></li>
+              <li><span>Agentes IA & Flujos RAG</span></li>
+              <li><span>APIs RESTful con FastAPI</span></li>
             </ul>
           </div>
 
           <div className="footer-section">
-            <h4>Contacto</h4>
+            <h4>// TELEMETRIA</h4>
             <div className="contact-info">
-              <p>📧 pumaurbina120@gmail.com</p>
-              <p>📱 +52 22 27 54 39 21</p>
-              <p>📍 México</p>
+              <p>
+                <CyberIcon name="mail" size={13} color="var(--neon-cyan)" />
+                <span>pumaurbina120@gmail.com</span>
+              </p>
+              <p>
+                <CyberIcon name="phone" size={13} color="var(--neon-red)" />
+                <span>+52 22 27 54 39 21</span>
+              </p>
+              <p>
+                <CyberIcon name="mapPin" size={13} color="var(--neon-green)" />
+                <span>México // Remoto Global</span>
+              </p>
             </div>
           </div>
         </div>
 
         <div className="footer-bottom">
           <div className="footer-bottom-content">
-            <p>© {currentYear} pablo.dev — All systems operational.</p>
-            <div className="footer-bottom-links">
-              <a href="#">Privacidad</a>
-              <a href="#">Términos</a>
-            </div>
+            <p>© {currentYear} pablo.dev // ALL SYSTEMS OPERATIONAL</p>
           </div>
 
-          <button className="scroll-to-top" onClick={scrollToTop}>
-            <span>↑</span>
+          <button className="scroll-to-top interactive" onClick={scrollToTop} aria-label="Volver arriba">
+            <CyberIcon name="arrowUp" size={16} />
           </button>
         </div>
       </div>
     </footer>
   );
-
 };
 
 export default Footer;

@@ -1,358 +1,448 @@
-// Professional Animation System
+// Cyberpunk Animation Engine & Interaction Manager
+
+export class TextScramble {
+  constructor(el) {
+    this.el = el;
+    this.chars = '!<>-_\\/[]{}—=+*^?#________010101';
+    this.update = this.update.bind(this);
+  }
+
+  setText(newText) {
+    const oldText = this.el.innerText || '';
+    const length = Math.max(oldText.length, newText.length);
+    const promise = new Promise((resolve) => (this.resolve = resolve));
+    this.queue = [];
+
+    for (let i = 0; i < length; i++) {
+      const from = oldText[i] || '';
+      const to = newText[i] || '';
+      const start = Math.floor(Math.random() * 20);
+      const end = start + Math.floor(Math.random() * 20);
+      this.queue.push({ from, to, start, end, char: '' });
+    }
+
+    cancelAnimationFrame(this.frameRequest);
+    this.frame = 0;
+    this.update();
+    return promise;
+  }
+
+  update() {
+    let output = '';
+    let complete = 0;
+
+    for (let i = 0, n = this.queue.length; i < n; i++) {
+      let { from, to, start, end, char } = this.queue[i];
+      if (this.frame >= end) {
+        complete++;
+        output += to;
+      } else if (this.frame >= start) {
+        if (!char || Math.random() < 0.28) {
+          char = this.randomChar();
+          this.queue[i].char = char;
+        }
+        output += `<span class="scramble-char">${char}</span>`;
+      } else {
+        output += from;
+      }
+    }
+
+    this.el.innerHTML = output;
+
+    if (complete === this.queue.length) {
+      this.resolve();
+    } else {
+      this.frameRequest = requestAnimationFrame(this.update);
+      this.frame++;
+    }
+  }
+
+  randomChar() {
+    return this.chars[Math.floor(Math.random() * this.chars.length)];
+  }
+}
+
 class AnimationManager {
   constructor() {
-    // Solo reducir animaciones si es móvil Y tiene preferencia de reduced motion
-    const isMobile = window.innerWidth < 768;
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    
-    // En desktop, siempre mostrar animaciones
-    // En móvil, respetar preferencia de reduced motion
-    this.isReduced = isMobile && prefersReducedMotion;
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const prefersReducedMotion = typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    this.isReduced = prefersReducedMotion;
     this.isMobile = isMobile;
-    
+
     this.init();
   }
 
   init() {
-    // En desktop, siempre inicializar todas las animaciones
-    // En móvil con reduced motion, saltar
-    if (this.isReduced) return;
-
+    this.setupSectionGlitchAnimations();
     this.setupScrollAnimations();
-    
-    // Parallax y cursor solo en desktop
-    if (!this.isMobile) {
-      this.setupParallax();
-      this.setupCursorEffects();
-    }
-    
+    this.setupTiltAndSpotlight();
     this.setupHoverEffects();
     this.setupStaggerAnimations();
+
+    if (!this.isMobile) {
+      this.setupCursorEffects();
+    }
   }
 
-  // Advanced Scroll Animations
+  // Full-Zone Cyber Glitch Entrance across entire section
+  setupSectionGlitchAnimations() {
+    const sections = document.querySelectorAll('section');
+
+    // Create & inject the holographic glitch overlay into every section
+    sections.forEach(section => {
+      section.style.position = 'relative';
+      if (!section.querySelector('.section-glitch-overlay')) {
+        const overlay = document.createElement('div');
+        overlay.className = 'section-glitch-overlay';
+        overlay.setAttribute('aria-hidden', 'true');
+        overlay.innerHTML = `
+          <div class="glitch-scanlines"></div>
+          <div class="glitch-chroma-slice chroma-1"></div>
+          <div class="glitch-chroma-slice chroma-2"></div>
+          <div class="glitch-chroma-slice chroma-3"></div>
+          <div class="glitch-laser-bar"></div>
+        `;
+        section.appendChild(overlay);
+      }
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const section = entry.target;
+          AnimationManager.triggerSectionGlitch(section);
+        } else {
+          entry.target.classList.remove('section-glitched-settled');
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    sections.forEach(sec => observer.observe(sec));
+  }
+
+  // Trigger full-zone glitch on a target section
+  static triggerSectionGlitch(section) {
+    if (!section) return;
+
+    const overlay = section.querySelector('.section-glitch-overlay');
+    if (overlay) {
+      overlay.classList.remove('active');
+      // Force DOM reflow to re-trigger CSS keyframe animations
+      void overlay.offsetWidth;
+      overlay.classList.add('active');
+
+      setTimeout(() => {
+        overlay.classList.remove('active');
+      }, 700);
+    }
+
+    // Scramble section titles inside this section
+    const titles = section.querySelectorAll('.section-title[data-scramble]');
+    titles.forEach(title => {
+      const original = title.dataset.originalText || title.innerText;
+      if (!title.dataset.originalText) {
+        title.dataset.originalText = original;
+      }
+      const scrambler = new TextScramble(title);
+      scrambler.setText(original);
+    });
+
+    section.classList.add('section-glitched-settled');
+  }
+
+  // Scroll reveals with IntersectionObserver
   setupScrollAnimations() {
     const observerOptions = {
-      threshold: 0.15,
-      rootMargin: '0px 0px -50px 0px'
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          
-          // Add stagger delay for multiple elements
-          if (entry.target.classList.contains('stagger-animation')) {
+
+          if (entry.target.classList.contains('stagger-container') || entry.target.classList.contains('stagger-animation')) {
             entry.target.classList.add('animate');
+          }
+
+          // Activate child stagger items with cascade
+          if (entry.target.classList.contains('section-header')) {
+            const subtitle = entry.target.querySelector('.section-subtitle');
+            if (subtitle) {
+              subtitle.style.animationPlayState = 'running';
+            }
           }
         }
       });
     }, observerOptions);
 
-    // Observe elements with animation classes
     const animatedElements = document.querySelectorAll(
-      '.fade-in, .slide-in-left, .slide-in-right, .scale-in, .stagger-animation'
+      '.fade-in, .slide-in-left, .slide-in-right, .scale-in, .stagger-animation, .stagger-container, .cyber-reveal, .section-header'
     );
-    
+
     animatedElements.forEach(el => observer.observe(el));
   }
 
-  // Parallax Effects
-  setupParallax() {
-    let ticking = false;
+  // Dynamic 3D Card Tilt + Mouse Spotlight illumination
+  setupTiltAndSpotlight() {
+    if (this.isMobile) return;
 
-    const updateParallax = () => {
-      const scrolled = window.pageYOffset;
-      const parallaxElements = document.querySelectorAll('.parallax-element');
+    const cards = document.querySelectorAll(
+      '.floating-card, .achievement, .stat-card, .skill-category, .certificate-card, .contact-method, .project-card, .project-info-section, [data-tilt]'
+    );
 
-      parallaxElements.forEach(element => {
-        const speed = element.dataset.speed || 0.5;
-        const yPos = -(scrolled * speed);
-        element.style.transform = `translateY(${yPos}px)`;
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Spotlight custom properties
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+
+        // 3D perspective calculation
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const deltaX = (x - centerX) / centerX;
+        const deltaY = (y - centerY) / centerY;
+
+        const rotateX = deltaY * -7;
+        const rotateY = deltaX * 7;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px) scale(1.01)`;
+        card.style.transition = 'box-shadow 0.2s ease, border-color 0.2s ease';
       });
 
-      ticking = false;
-    };
-
-    const requestTick = () => {
-      if (!ticking) {
-        requestAnimationFrame(updateParallax);
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', requestTick, { passive: true });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+        card.style.transition = '';
+      });
+    });
   }
 
-  // Advanced Hover Effects
+  // Interactive Hover Effects
   setupHoverEffects() {
     const hoverElements = document.querySelectorAll('.hover-lift, .hover-glow');
 
     hoverElements.forEach(element => {
-      element.addEventListener('mouseenter', (e) => {
-        this.addMagneticEffect(e.target);
+      element.addEventListener('mouseenter', () => {
+        element.classList.add('is-hovered');
       });
 
-      element.addEventListener('mouseleave', (e) => {
-        this.removeMagneticEffect(e.target);
+      element.addEventListener('mouseleave', () => {
+        element.classList.remove('is-hovered');
       });
     });
   }
 
-  // Magnetic Effect for Cards
-  addMagneticEffect(element) {
-    element.addEventListener('mousemove', this.magneticMove);
-  }
-
-  removeMagneticEffect(element) {
-    element.removeEventListener('mousemove', this.magneticMove);
-    element.style.transform = '';
-  }
-
-  magneticMove = (e) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    const deltaX = (x - centerX) / centerX;
-    const deltaY = (y - centerY) / centerY;
-    
-    const rotateX = deltaY * 10;
-    const rotateY = deltaX * 10;
-    
-    card.style.transform = `perspective(1000px) rotateX(${-rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
-  }
-
-  // Stagger Animations
+  // Stagger cascading
   setupStaggerAnimations() {
-    const staggerContainers = document.querySelectorAll('.stagger-container');
+    const containers = document.querySelectorAll('.stagger-container');
 
-    staggerContainers.forEach(container => {
+    containers.forEach(container => {
       const items = container.querySelectorAll('.stagger-item');
-      
       items.forEach((item, index) => {
-        item.style.animationDelay = `${index * 0.1}s`;
-        item.classList.add('stagger-animation');
+        item.style.animationDelay = `${index * 0.08 + 0.05}s`;
       });
     });
   }
 
-  // Custom Cursor Effects
+  // Cyberpunk HUD Cursor
   setupCursorEffects() {
-    if (window.innerWidth < 768) return; // Skip on mobile
+    if (document.querySelector('.custom-cursor')) return;
 
     const cursor = document.createElement('div');
     cursor.className = 'custom-cursor';
-    cursor.innerHTML = '<div class="cursor-dot"></div><div class="cursor-ring"></div>';
+    cursor.innerHTML = `
+      <div class="cursor-dot"></div>
+      <div class="cursor-ring"></div>
+      <div class="cursor-crosshair ch-t"></div>
+      <div class="cursor-crosshair ch-r"></div>
+      <div class="cursor-crosshair ch-b"></div>
+      <div class="cursor-crosshair ch-l"></div>
+    `;
     document.body.appendChild(cursor);
 
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
+    let mouseX = -100, mouseY = -100;
+    let cursorX = -100, cursorY = -100;
 
-    document.addEventListener('mousemove', (e) => {
+    window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
     });
 
     const animateCursor = () => {
-      cursorX += (mouseX - cursorX) * 0.1;
-      cursorY += (mouseY - cursorY) * 0.1;
-      
-      cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+      cursorX += (mouseX - cursorX) * 0.18;
+      cursorY += (mouseY - cursorY) * 0.18;
+
+      cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0)`;
       requestAnimationFrame(animateCursor);
     };
 
-    animateCursor();
+    requestAnimationFrame(animateCursor);
 
-    // Cursor interactions
-    const interactiveElements = document.querySelectorAll('a, button, .interactive');
-    
-    interactiveElements.forEach(el => {
-      el.addEventListener('mouseenter', () => {
+    // Click pulse
+    window.addEventListener('mousedown', () => cursor.classList.add('cursor-click'));
+    window.addEventListener('mouseup', () => cursor.classList.remove('cursor-click'));
+
+    // Target hover interactions
+    const interactiveSelectors = 'a, button, .interactive, .tab-nav-item, input, textarea, .certificate-card';
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest(interactiveSelectors)) {
         cursor.classList.add('cursor-hover');
-      });
-      
-      el.addEventListener('mouseleave', () => {
+      }
+    });
+
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest(interactiveSelectors)) {
         cursor.classList.remove('cursor-hover');
-      });
+      }
     });
   }
 
-  // Professional Page Transitions
+  // Smooth Section Navigation
   static setupPageTransitions() {
-    const links = document.querySelectorAll('a[href^="#"]');
-    
+    const links = document.querySelectorAll('a[href^="#"], .nav-btn, .logo');
+
     links.forEach(link => {
       link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('href').substring(1);
-        const targetElement = document.getElementById(targetId);
-        
-        if (targetElement) {
-          const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - 80;
-          
-          window.scrollTo({
-            top: offsetTop,
-            behavior: 'smooth'
-          });
+        const href = link.getAttribute('href') || link.dataset.target;
+        let targetId = '';
+        if (href && href.startsWith('#')) {
+          targetId = href.substring(1);
+        }
+
+        if (targetId) {
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            AnimationManager.triggerSectionGlitch(targetElement);
+          }
         }
       });
     });
   }
 
-  // Text Animations
-  static animateText(element, text, speed = 50) {
-    element.textContent = '';
-    let i = 0;
-    
-    const typeWriter = () => {
-      if (i < text.length) {
-        element.textContent += text.charAt(i);
-        i++;
-        setTimeout(typeWriter, speed);
-      }
-    };
-    
-    typeWriter();
-  }
-
-  // Typewriter effect specifically for hero title
-  static typewriterEffect(element, speed = 80) {
-    if (!element) return;
-    
-    const fullText = "Hola, soy Pablo";
-    element.innerHTML = '';
-    element.style.borderRight = '0.15em solid rgba(255, 255, 255, 0.8)';
-    element.style.animation = 'blink-caret 0.75s step-end infinite';
-    
-    let i = 0;
-    const typeWriter = () => {
-      if (i <= fullText.length) {
-        const currentText = fullText.substring(0, i);
-        
-        // Si hemos llegado a "Pablo", aplicar el span highlight
-        if (currentText.includes('Pablo')) {
-          const beforePablo = currentText.substring(0, currentText.indexOf('Pablo'));
-          const pabloText = currentText.substring(currentText.indexOf('Pablo'));
-          element.innerHTML = beforePablo + '<span class="highlight">' + pabloText + '</span>';
-        } else {
-          element.textContent = currentText;
-        }
-        
-        i++;
-        setTimeout(typeWriter, speed);
-      } else {
-        // Completar con HTML final
-        element.innerHTML = 'Hola, soy <span class="highlight">Pablo</span>';
-        
-        // Activar animación del highlight después de un momento
-        setTimeout(() => {
-          const highlight = element.querySelector('.highlight');
-          if (highlight) {
-            highlight.style.animation = 'gradientShift 3s ease-in-out infinite';
-          }
-        }, 500);
-      }
-    };
-    
-    setTimeout(typeWriter, 500); // Delay inicial
-  }
-
-  // Number Counter Animation
-  static animateCounter(element, target, duration = 2000) {
+  // Smooth Easing Counter
+  static animateCounter(element, target, duration = 1800) {
     const start = 0;
-    const increment = target / (duration / 16);
-    let current = start;
-    
-    const timer = setInterval(() => {
-      current += increment;
-      element.textContent = Math.floor(current);
-      
-      if (current >= target) {
-        element.textContent = target;
-        clearInterval(timer);
+    const startTime = performance.now();
+
+    const easeOutQuad = (t) => t * (2 - t);
+
+    const update = (now) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const current = Math.floor(start + (target - start) * easeOutQuad(progress));
+
+      element.textContent = `${current}+`;
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        element.textContent = `${target}+`;
       }
-    }, 16);
-  }
+    };
 
-  // Loading States
-  static showLoading(element) {
-    element.classList.add('skeleton');
-    element.innerHTML = '<div class="skeleton-content"></div>';
-  }
-
-  static hideLoading(element, content) {
-    element.classList.remove('skeleton');
-    element.innerHTML = content;
+    requestAnimationFrame(update);
   }
 }
 
-// CSS for custom cursor
+// Global Cursor Styles
 const cursorStyles = `
   .custom-cursor {
     position: fixed;
     top: 0;
     left: 0;
     pointer-events: none;
-    z-index: 9999;
-    mix-blend-mode: difference;
+    z-index: 99999;
+    mix-blend-mode: screen;
+    will-change: transform;
   }
 
   .cursor-dot {
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
-    background: var(--primary-cyan);
+    background: #00f0ff;
     position: absolute;
-    top: -2px;
-    left: -2px;
+    top: -3px;
+    left: -3px;
+    box-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
+    transition: transform 0.1s ease;
   }
 
   .cursor-ring {
-    width: 24px;
-    height: 24px;
-    border: 1px solid var(--primary-cyan);
+    width: 28px;
+    height: 28px;
+    border: 1px solid rgba(0, 240, 255, 0.4);
     border-radius: 50%;
     position: absolute;
-    top: -12px;
-    left: -12px;
-    transition: all 0.1s ease;
+    top: -14px;
+    left: -14px;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
   }
 
+  .cursor-crosshair {
+    position: absolute;
+    background: rgba(0, 240, 255, 0.6);
+    pointer-events: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .ch-t { width: 1px; height: 5px; top: -19px; left: 0; }
+  .ch-b { width: 1px; height: 5px; top: 14px; left: 0; }
+  .ch-l { width: 5px; height: 1px; top: 0; left: -19px; }
+  .ch-r { width: 5px; height: 1px; top: 0; left: 14px; }
+
   .custom-cursor.cursor-hover .cursor-ring {
-    transform: scale(2);
-    border-color: var(--primary-magenta);
+    transform: scale(1.6);
+    border-color: #ff2251;
+    background: rgba(255, 34, 81, 0.08);
   }
 
   .custom-cursor.cursor-hover .cursor-dot {
-    background: var(--primary-magenta);
+    background: #ff2251;
+    box-shadow: 0 0 12px #ff2251;
+    transform: scale(1.4);
+  }
+
+  .custom-cursor.cursor-click .cursor-ring {
+    transform: scale(0.85);
+    border-color: #00ff88;
+  }
+
+  .scramble-char {
+    color: var(--neon-cyan, #00e5ff);
+    opacity: 0.9;
+    font-family: var(--mono, monospace);
   }
 `;
 
-// Inject cursor styles
-const style = document.createElement('style');
-style.textContent = cursorStyles;
-document.head.appendChild(style);
+if (typeof document !== 'undefined') {
+  const style = document.createElement('style');
+  style.textContent = cursorStyles;
+  document.head.appendChild(style);
+}
 
-// Initialize animations when DOM is ready
-function initAnimations() {
+// Auto-initialize
+export function initAnimations() {
   const manager = new AnimationManager();
   AnimationManager.setupPageTransitions();
   return manager;
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initAnimations);
-} else {
-  // DOM already ready (React has already rendered)
-  // Small delay to ensure all React components have mounted
-  setTimeout(initAnimations, 100);
+if (typeof window !== 'undefined') {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAnimations);
+  } else {
+    setTimeout(initAnimations, 80);
+  }
 }
 
-// Export for use in components
 export { AnimationManager };

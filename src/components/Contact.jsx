@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
+import CyberIcon from './CyberIcons';
 import './Contact.css';
 
 const Contact = () => {
@@ -14,11 +15,6 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');
 
-  useEffect(() => {
-    // Cleanup on unmount
-    return () => {};
-  }, []);
-
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -31,12 +27,10 @@ const Contact = () => {
     setIsSubmitting(true);
     setSubmitStatus('');
 
-    // Configuración de EmailJS
     const serviceID = 'service_199yb0i';
     const templateID = 'template_h48lvif';
     const publicKey = 'EHEECS4P87ZQpl0Uh';
 
-    // Preparar los parámetros del template
     const templateParams = {
       from_name: formData.name,
       from_email: formData.email,
@@ -44,7 +38,7 @@ const Contact = () => {
       message: formData.message,
       sent_date: new Date().toLocaleString('es-ES', {
         year: 'numeric',
-        month: 'long', 
+        month: 'long',
         day: 'numeric',
         hour: '2-digit',
         minute: '2-digit'
@@ -52,37 +46,28 @@ const Contact = () => {
     };
 
     try {
-      // Enviar email usando EmailJS
-      const response = await emailjs.send(
+      await emailjs.send(
         serviceID,
         templateID,
         templateParams,
         publicKey
       );
 
-      console.log('Email enviado exitosamente!', response.status, response.text);
-      
-      // Mostrar mensaje de éxito
       setSubmitStatus('success');
-      
-      // Limpiar formulario
-      setFormData({ 
-        name: '', 
-        email: '', 
-        subject: '', 
-        message: '' 
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
       });
-      
-      // Ocultar mensaje de éxito después de 5 segundos
+
       setTimeout(() => {
         setSubmitStatus('');
       }, 5000);
-
     } catch (error) {
       console.error('Error al enviar el email:', error);
       setSubmitStatus('error');
-      
-      // Ocultar mensaje de error después de 5 segundos
+
       setTimeout(() => {
         setSubmitStatus('');
       }, 5000);
@@ -95,83 +80,95 @@ const Contact = () => {
     <section id="contact" className="contact" ref={contactRef}>
       <div className="container">
         <div className="section-header fade-in">
-          <h2 className="section-title">Contacto</h2>
-          <p className="section-subtitle">¿Tienes un proyecto en mente? ¡Hablemos y creemos algo increíble juntos!</p>
+          <h2 className="section-title" data-scramble>Contacto Directo</h2>
+          <p className="section-subtitle">Inicia una transmision de comunicacion para proyectos, colaboraciones o propuestas laborales</p>
         </div>
 
         <div className="contact-content">
-          <div className="contact-info contact-animate-left">
-            <h3>Información de Contacto</h3>
+          <div className="contact-info slide-in-left">
+            <h3>// CANALES_DE_COMUNICACION</h3>
             <p>
-              Estoy disponible para proyectos freelance, colaboraciones y oportunidades laborales. 
-              No dudes en contactarme si tienes alguna pregunta o propuesta.
+              Disponible para proyectos de ingenieria frontend, consultoria de producto, desarrollo de agentes con IA y oportunidades profesionales.
             </p>
 
             <div className="contact-methods">
-              <div className="contact-method">
-                <div className="method-icon">📧</div>
+              <div className="contact-method hover-lift" data-tilt>
+                <div className="method-icon-wrap">
+                  <CyberIcon name="mail" size={18} color="var(--neon-cyan)" />
+                </div>
                 <div className="method-info">
-                  <h4>Email</h4>
+                  <h4>Email Oficial</h4>
                   <p>pumaurbina120@gmail.com</p>
                 </div>
               </div>
 
-              <div className="contact-method">
-                <div className="method-icon">📱</div>
+              <div className="contact-method hover-lift" data-tilt>
+                <div className="method-icon-wrap">
+                  <CyberIcon name="phone" size={18} color="var(--neon-red)" />
+                </div>
                 <div className="method-info">
-                  <h4>Teléfono</h4>
+                  <h4>Telefono Directo</h4>
                   <p>+52 22 27 54 39 21</p>
                 </div>
               </div>
 
-              <div className="contact-method">
-                <div className="method-icon">📍</div>
+              <div className="contact-method hover-lift" data-tilt>
+                <div className="method-icon-wrap">
+                  <CyberIcon name="mapPin" size={18} color="var(--neon-green)" />
+                </div>
                 <div className="method-info">
-                  <h4>Ubicación</h4>
-                  <p>México</p>
+                  <h4>Ubicacion Geografica</h4>
+                  <p>Mexico // Remoto Global</p>
                 </div>
               </div>
 
-              <div className="contact-method">
-                <div className="method-icon">⏰</div>
+              <div className="contact-method hover-lift" data-tilt>
+                <div className="method-icon-wrap">
+                  <CyberIcon name="clock" size={18} color="var(--neon-yellow)" />
+                </div>
                 <div className="method-info">
                   <h4>Disponibilidad</h4>
-                  <p>Lunes - Viernes, 9:00 AM - 6:00 PM</p>
+                  <p>Lunes - Viernes // 9:00 AM - 6:00 PM</p>
                 </div>
               </div>
             </div>
 
             <div className="social-links">
-              <h4>Sígueme en:</h4>
+              <h4>// REDES_Y_PERFILES</h4>
               <div className="social-icons">
-                <a href="https://github.com/Puma120" target="_blank" rel="noopener noreferrer" className="social-link">
-                  <div className="social-icon">💻</div>
+                <a href="https://github.com/Puma120" target="_blank" rel="noopener noreferrer" className="social-link interactive">
+                  <CyberIcon name="github" size={16} />
                   <span>GitHub</span>
                 </a>
-                <a href="https://instagram.com/puma_w_" target="_blank" rel="noopener noreferrer" className="social-link">
-                  <div className="social-icon">📷</div>
+                <a href="https://instagram.com/puma_w_" target="_blank" rel="noopener noreferrer" className="social-link interactive">
+                  <CyberIcon name="instagram" size={16} />
                   <span>Instagram</span>
                 </a>
               </div>
             </div>
           </div>
 
-          <div className="contact-form contact-animate-right">
-            <h3>Envíame un Mensaje</h3>
-            
+          <div className="contact-form-container slide-in-right" data-tilt>
+            <div className="form-hud-header">
+              <span>TRANSMISSION_TERMINAL // SECURE_ENCRYPTION</span>
+              <span className="hud-signal">SIGNAL: OPTIMAL</span>
+            </div>
+
             {submitStatus === 'success' && (
-              <div className="success-message">
-                ✅ ¡Mensaje enviado exitosamente! Te responderé pronto.
+              <div className="status-banner success" role="alert">
+                <CyberIcon name="checkCircle" size={18} color="var(--neon-green)" />
+                <span>Mensaje transmitido exitosamente. Te respondere a la brevedad.</span>
               </div>
             )}
 
             {submitStatus === 'error' && (
-              <div className="error-message">
-                ❌ Error al enviar el mensaje. Por favor, intenta de nuevo.
+              <div className="status-banner error" role="alert">
+                <CyberIcon name="close" size={18} color="var(--neon-red)" />
+                <span>Error en la transmision. Por favor intenta de nuevo o envia un email directo.</span>
               </div>
             )}
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="contact-form">
               <div className="form-group">
                 <label htmlFor="name">Nombre Completo</label>
                 <input
@@ -181,7 +178,8 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  placeholder="Tu nombre completo"
+                  placeholder="Tu nombre completo…"
+                  autoComplete="name"
                 />
               </div>
 
@@ -194,7 +192,9 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  placeholder="tu.email@ejemplo.com"
+                  placeholder="tu.email@ejemplo.com…"
+                  autoComplete="email"
+                  spellCheck={false}
                 />
               </div>
 
@@ -207,12 +207,12 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                 >
-                  <option value="">Selecciona un asunto</option>
+                  <option value="">Selecciona una categoria…</option>
                   <option value="Nuevo Proyecto">Nuevo Proyecto</option>
-                  <option value="Colaboración">Colaboración</option>
+                  <option value="Colaboración">Colaboracion</option>
                   <option value="Oportunidad Laboral">Oportunidad Laboral</option>
                   <option value="Consulta General">Consulta General</option>
-                  <option value="Hackathon/Competencia">Hackathon/Competencia</option>
+                  <option value="Hackathon/Competencia">Hackathon / Competencia</option>
                   <option value="Otro">Otro</option>
                 </select>
               </div>
@@ -225,23 +225,26 @@ const Contact = () => {
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  rows="6"
-                  placeholder="Cuéntame sobre tu proyecto o consulta..."
-                ></textarea>
+                  rows="5"
+                  placeholder="Describe los requerimientos tecnicos o la consulta…"
+                />
               </div>
 
-              <button 
-                type="submit" 
-                className={`submit-btn ${isSubmitting ? 'submitting' : ''}`}
+              <button
+                type="submit"
+                className={`btn btn-primary submit-btn interactive ${isSubmitting ? 'submitting' : ''}`}
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
                   <>
-                    <span className="spinner"></span>
-                    Enviando...
+                    <span className="cyber-spinner" aria-hidden="true" />
+                    <span>Transmitiendo Datos…</span>
                   </>
                 ) : (
-                  'Enviar Mensaje'
+                  <>
+                    <CyberIcon name="send" size={16} />
+                    <span>Enviar Transmision</span>
+                  </>
                 )}
               </button>
             </form>

@@ -1,28 +1,35 @@
 import React, { useState, useEffect } from 'react';
+import CyberIcon from './CyberIcons';
 import './Certificates.css';
 
 const Certificates = () => {
   const [selectedCertificate, setSelectedCertificate] = useState(null);
 
-  // Cleanup en caso de que el componente se desmonte con modal abierto
-  // Y listener para abrir certificados desde otros componentes
   useEffect(() => {
     const handleOpenCert = (e) => {
       const certId = e.detail;
-      const cert = certificates.find(c => c.id === certId);
+      const cert = certificates.find((c) => c.id === certId);
       if (cert) {
         setSelectedCertificate(cert);
         document.body.classList.add('modal-open');
       }
     };
-    
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && selectedCertificate) {
+        closeModal();
+      }
+    };
+
     window.addEventListener('openCertificate', handleOpenCert);
-    
+    window.addEventListener('keydown', handleKeyDown);
+
     return () => {
       window.removeEventListener('openCertificate', handleOpenCert);
+      window.removeEventListener('keydown', handleKeyDown);
       document.body.classList.remove('modal-open');
     };
-  }, []);
+  }, [selectedCertificate]);
 
   const certificates = [
     {
@@ -45,8 +52,8 @@ const Certificates = () => {
     },
     {
       id: 3,
-      title: 'Networking Basics - Cisco',
-      description: 'Certificación en fundamentos de redes y networking por Cisco Systems',
+      title: 'Networking Basics // Cisco Systems',
+      description: 'Certificación en fundamentos de redes, protocolos de comunicación y networking por Cisco Systems',
       image: '/networking-basics cisco certificado.png',
       issuer: 'Cisco Systems',
       date: '2025',
@@ -55,7 +62,7 @@ const Certificates = () => {
     {
       id: 4,
       title: 'Certificado Escolar Hackathon Genius Arena',
-      description: 'Certificado escolar por participación destacada en el Hackathon Genius Arena con reconocimiento académico',
+      description: 'Certificado escolar por participación destacada en el Hackathon Genius Arena con distinción académica',
       image: '/Certificado escolar hackathon genius arena.png',
       issuer: 'Genius Arena Escolar',
       date: '2025',
@@ -63,7 +70,7 @@ const Certificates = () => {
     },
     {
       id: 5,
-      title: 'Hackathon Ibero - 3er Lugar',
+      title: 'Hackathon Ibero // 3er Lugar',
       description: 'Reconocimiento por obtener el tercer lugar en el prestigioso Hackathon de la Universidad Iberoamericana',
       image: '/Certificado hackathon Ibero 3er Lugar.png',
       issuer: 'Universidad Iberoamericana',
@@ -72,8 +79,8 @@ const Certificates = () => {
     },
     {
       id: 6,
-      title: 'Mejor Proyecto Nova - ExpoIbero 2026',
-      description: 'Reconocimiento por obtener el galardón de mejor proyecto con "Nova Agent" en la ExpoIbero 2026',
+      title: 'Mejor Proyecto Nova // ExpoIbero 2026',
+      description: 'Reconocimiento de primer lugar y máximo galardón de la ExpoIbero 2026 con el proyecto "Nova Agent"',
       image: '/Certifiacdo_ExpoIbero_2026_NOVA.png',
       issuer: 'ExpoIbero',
       date: '2026',
@@ -81,8 +88,8 @@ const Certificates = () => {
     },
     {
       id: 7,
-      title: 'Asistente Virtual - ExpoIbero 2025',
-      description: 'Reconocimiento por el proyecto de Asistente Virtual presentado en la ExpoIbero 2025',
+      title: 'Asistente Virtual // ExpoIbero 2025',
+      description: 'Reconocimiento por el desarrollo y demostración del proyecto de Asistente Virtual presentado en la ExpoIbero 2025',
       image: '/ExpoIbero_2025_asistente virtual.jpg',
       issuer: 'ExpoIbero',
       date: '2025',
@@ -91,10 +98,8 @@ const Certificates = () => {
   ];
 
   const openModal = (certificate) => {
-    if (!certificate.pending) {
-      setSelectedCertificate(certificate);
-      document.body.classList.add('modal-open');
-    }
+    setSelectedCertificate(certificate);
+    document.body.classList.add('modal-open');
   };
 
   const closeModal = () => {
@@ -106,38 +111,46 @@ const Certificates = () => {
     <section id="certificates" className="certificates">
       <div className="container">
         <div className="section-header fade-in">
-          <h2 className="section-title">Certificaciones</h2>
-          <p className="section-subtitle">Reconocimientos y certificaciones que validan mis conocimientos y habilidades</p>
+          <h2 className="section-title" data-scramble>Certificaciones & Premios</h2>
+          <p className="section-subtitle">Acreditaciones oficiales, premios en competencias de ingeniería y distinciones académicas</p>
         </div>
 
         <div className="certificates-grid stagger-container">
-          {certificates.map((certificate, index) => (
-            <div 
-              key={certificate.id} 
-              className={`certificate-card stagger-item hover-lift interactive ${certificate.pending ? 'pending' : ''}`}
+          {certificates.map((certificate) => (
+            <div
+              key={certificate.id}
+              className="certificate-card stagger-item hover-lift interactive"
               onClick={() => openModal(certificate)}
+              data-tilt
             >
               <div className="certificate-image">
                 {certificate.image ? (
-                  <img 
-                    src={certificate.image} 
+                  <img
+                    src={certificate.image}
                     alt={certificate.title}
+                    width="400"
+                    height="300"
                     onError={(e) => {
                       e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'flex';
+                      if (e.target.nextSibling) {
+                        e.target.nextSibling.style.display = 'flex';
+                      }
                     }}
                   />
                 ) : null}
                 <div className={`placeholder-cert ${certificate.image ? 'hidden' : ''}`}>
                   <div className="placeholder-icon">
-                    {certificate.pending ? '🔄' : '📜'}
+                    <CyberIcon name="award" size={32} color="var(--neon-cyan)" />
                   </div>
-                  <p>{certificate.pending ? 'Próximamente' : 'Certificado'}</p>
+                  <p>Certificado</p>
                 </div>
-                
+
                 <div className="certificate-overlay">
                   <div className="overlay-content">
-                    <div className="category-badge">{certificate.category}</div>
+                    <div className="category-badge">
+                      <CyberIcon name="trophy" size={11} color="var(--neon-cyan)" />
+                      <span>{certificate.category}</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -146,22 +159,34 @@ const Certificates = () => {
                 <h3>{certificate.title}</h3>
                 <p className="certificate-description">{certificate.description}</p>
                 <div className="certificate-details">
-                  <span className="issuer">🏢 {certificate.issuer}</span>
-                  <span className="date">📅 {certificate.date}</span>
+                  <span className="issuer">
+                    <CyberIcon name="terminal" size={12} color="var(--neon-red)" />
+                    {certificate.issuer}
+                  </span>
+                  <span className="date">
+                    <CyberIcon name="clock" size={12} color="var(--text-muted)" />
+                    {certificate.date}
+                  </span>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Modal */}
+        {/* Cyberpunk Modal */}
         {selectedCertificate && (
-          <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-overlay" onClick={closeModal} role="dialog" aria-modal="true">
             <div className="modal-content image-only" onClick={(e) => e.stopPropagation()}>
-              <button className="close-btn" onClick={closeModal}>&times;</button>
+              <button className="close-btn" onClick={closeModal} aria-label="Cerrar modal">
+                <CyberIcon name="close" size={20} color="var(--neon-cyan)" />
+              </button>
+              <div className="modal-hud-header">
+                <span>DOC_VIEWER // {selectedCertificate.issuer}</span>
+                <span className="modal-hud-year">EXP: {selectedCertificate.date}</span>
+              </div>
               <div className="modal-image-fullscreen">
-                <img 
-                  src={selectedCertificate.image} 
+                <img
+                  src={selectedCertificate.image}
                   alt={selectedCertificate.title}
                 />
               </div>

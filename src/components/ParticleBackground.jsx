@@ -4,132 +4,147 @@ import './ParticleBackground.css';
 const ParticleBackground = () => {
   const canvasRef = useRef(null);
   const animationFrameId = useRef(null);
+  const mouseRef = useRef({ x: -1000, y: -1000, radius: 140 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
-    
-    // Detectar si es móvil
+    const ctx = canvas.getContext('2d', { alpha: true });
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const speedFactor = prefersReducedMotion ? 0.3 : 1;
+
     const isMobile = window.innerWidth < 768;
-    
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    handleResize();
 
     const particles = [];
-    // Reducir partículas en móvil
-    const particleCount = isMobile ? 30 : 60;
-    const connectionDistance = isMobile ? 100 : 150;
-    const maxConnections = isMobile ? 2 : 3; // Limitar conexiones en móvil
+    const particleCount = isMobile ? 35 : 75;
+    const connectionDistance = isMobile ? 90 : 140;
 
-    class Particle {
+    class CyberNode {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 0.3;
-        this.vy = (Math.random() - 0.5) * 0.3;
-        this.radius = isMobile ? 1.5 : Math.random() * 2 + 1;
-        this.opacity = Math.random() * 0.4 + 0.2;
+        this.vx = (Math.random() - 0.5) * 0.45;
+        this.vy = (Math.random() - 0.5) * 0.45;
+        this.size = Math.random() * 2 + 1;
+        this.baseSize = this.size;
+        this.isRed = Math.random() < 0.2; // 20% red nodes for cyberpunk accent
+        this.color = this.isRed ? 'rgba(255, 34, 81, ' : 'rgba(0, 240, 255, ';
+        this.alpha = Math.random() * 0.5 + 0.25;
+        this.pulseSpeed = Math.random() * 0.02 + 0.01;
+        this.pulse = 0;
       }
 
       update() {
-        this.x += this.vx;
-        this.y += this.vy;
+        this.x += this.vx * speedFactor;
+        this.y += this.vy * speedFactor;
 
         if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
         if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+        // Pulse size
+        this.pulse += this.pulseSpeed;
+        this.size = this.baseSize + Math.sin(this.pulse) * 0.5;
+
+        // Mouse interaction (repel gently)
+        const dx = mouseRef.current.x - this.x;
+        const dy = mouseRef.current.y - this.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < mouseRef.current.radius) {
+          const force = (mouseRef.current.radius - dist) / mouseRef.current.radius;
+          const dirX = dx / dist;
+          const dirY = dy / dist;
+          this.x -= dirX * force * 3;
+          this.y -= dirY * force * 3;
+        }
       }
 
       draw() {
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 243, 255, ${this.opacity})`;
-        if (!isMobile) {
-          ctx.shadowBlur = 8;
-          ctx.shadowColor = 'rgba(0, 243, 255, 0.6)';
-        }
+        ctx.arc(this.x, this.y, Math.max(0.5, this.size), 0, Math.PI * 2);
+        ctx.fillStyle = `${this.color}${this.alpha})`;
+        ctx.shadowBlur = this.isRed ? 8 : 12;
+        ctx.shadowColor = this.isRed ? '#ff2251' : '#00f0ff';
         ctx.fill();
+        ctx.shadowBlur = 0;
       }
     }
 
-    // Create particles
     for (let i = 0; i < particleCount; i++) {
-      particles.push(new Particle());
+      particles.push(new CyberNode());
     }
 
-    // Connect particles (optimizado)
-    function connectParticles() {
+    const connectNodes = () => {
       for (let i = 0; i < particles.length; i++) {
-        let connections = 0;
         for (let j = i + 1; j < particles.length; j++) {
-          if (connections >= maxConnections) break;
-          
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
+          const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < connectionDistance) {
-            const opacity = (1 - distance / connectionDistance) * 0.25;
+          if (dist < connectionDistance) {
+            const opacity = (1 - dist / connectionDistance) * 0.22;
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(0, 243, 255, ${opacity})`;
-            ctx.lineWidth = 0.5;
+            ctx.strokeStyle = particles[i].isRed || particles[j].isRed
+              ? `rgba(255, 34, 81, ${opacity * 0.8})`
+              : `rgba(0, 240, 255, ${opacity})`;
+            ctx.lineWidth = 0.6;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
             ctx.stroke();
-            connections++;
           }
         }
       }
-    }
+    };
 
-    // Animation loop con throttling en móvil
-    let lastTime = 0;
-    const fps = isMobile ? 30 : 60;
-    const interval = 1000 / fps;
-
-    function animate(currentTime) {
-      animationFrameId.current = requestAnimationFrame(animate);
-      
-      const deltaTime = currentTime - lastTime;
-      
-      if (deltaTime < interval) return;
-      
-      lastTime = currentTime - (deltaTime % interval);
-
+    const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      particles.forEach(particle => {
-        particle.update();
-        particle.draw();
+      particles.forEach((p) => {
+        p.update();
+        p.draw();
       });
 
-      connectParticles();
-    }
+      connectNodes();
 
-    animate(0);
+      animationFrameId.current = requestAnimationFrame(animate);
+    };
 
-    // Handle resize con debounce
-    let resizeTimeout;
-    const handleResize = () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      }, 250);
+    animate();
+
+    const handleMouseMove = (e) => {
+      mouseRef.current.x = e.clientX;
+      mouseRef.current.y = e.clientY;
+    };
+
+    const handleMouseLeave = () => {
+      mouseRef.current.x = -1000;
+      mouseRef.current.y = -1000;
     };
 
     window.addEventListener('resize', handleResize);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseleave', handleMouseLeave);
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
       }
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="particle-canvas" />;
+  return <canvas ref={canvasRef} className="particle-canvas" aria-hidden="true" />;
 };
 
 export default ParticleBackground;
