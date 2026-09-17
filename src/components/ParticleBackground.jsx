@@ -15,18 +15,28 @@ const ParticleBackground = () => {
 
     const speedFactor = prefersReducedMotion ? 0.3 : 1;
 
-    const isMobile = window.innerWidth < 768;
+    let isMobile = window.innerWidth < 768;
+    let particleCount = isMobile ? 35 : 75;
+    let connectionDistance = isMobile ? 90 : 140;
 
     const handleResize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+
+      const wasMobile = isMobile;
+      isMobile = window.innerWidth < 768;
+      connectionDistance = isMobile ? 90 : 140;
+
+      if (isMobile !== wasMobile) {
+        particleCount = isMobile ? 35 : 75;
+        particles.length = 0;
+        for (let i = 0; i < particleCount; i++) {
+          particles.push(new CyberNode());
+        }
+      }
     };
 
-    handleResize();
-
     const particles = [];
-    const particleCount = isMobile ? 35 : 75;
-    const connectionDistance = isMobile ? 90 : 140;
 
     class CyberNode {
       constructor() {
@@ -72,12 +82,14 @@ const ParticleBackground = () => {
         ctx.beginPath();
         ctx.arc(this.x, this.y, Math.max(0.5, this.size), 0, Math.PI * 2);
         ctx.fillStyle = `${this.color}${this.alpha})`;
-        ctx.shadowBlur = this.isRed ? 8 : 12;
+        ctx.shadowBlur = this.isRed ? 3 : 4;
         ctx.shadowColor = this.isRed ? '#ff2251' : '#00f0ff';
         ctx.fill();
         ctx.shadowBlur = 0;
       }
     }
+
+    handleResize();
 
     for (let i = 0; i < particleCount; i++) {
       particles.push(new CyberNode());
@@ -130,11 +142,24 @@ const ParticleBackground = () => {
       mouseRef.current.y = -1000;
     };
 
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        if (animationFrameId.current) {
+          cancelAnimationFrame(animationFrameId.current);
+          animationFrameId.current = null;
+        }
+      } else if (!animationFrameId.current) {
+        animate();
+      }
+    };
+
     window.addEventListener('resize', handleResize);
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('mouseleave', handleMouseLeave);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseleave', handleMouseLeave);

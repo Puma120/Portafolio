@@ -87,7 +87,18 @@ const DataStreams = () => {
 
     animationId = requestAnimationFrame(draw);
 
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animationId);
+        animationId = null;
+      } else if (!animationId) {
+        animationId = requestAnimationFrame(draw);
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
     return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       cancelAnimationFrame(animationId);
       window.removeEventListener('resize', resize);
     };
